@@ -1,0 +1,56 @@
+{
+  "name": "@banejs/framework",
+  "version": "1.0.0-beta.0",
+  "description": "BaneJS Framework",
+  "scripts": {
+    "test": "npm run type-check && npm run tslint && npm run jest",
+    "type-check": "tsc --noEmit",
+    "tslint": "tslint --project tsconfig.json --format stylish",
+    "jest": "jest --coverage --detectOpenHandles",
+    "build": "npm run build:clean && npm run build:types && npm run build:js",
+    "build:clean": "rm -rf ./lib",
+    "build:types": "tsc --emitDeclarationOnly",
+    "build:js": "babel src --out-dir lib --extensions \".ts,.tsx\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/banejs/framework.git"
+  },
+  "keywords": [
+    "banejs",
+    "framework",
+    "server",
+    "router",
+    "container",
+    "inversion of control",
+    "ioc",
+    "typescript"
+  ],
+  "author": "Anton Drobot",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/banejs/framework/issues"
+  },
+  "homepage": "https://github.com/banejs/framework#readme",
+  "devDependencies": {
+    "@babel/cli": "~7.1.2",
+    "@babel/core": "~7.1.0",
+    "@babel/plugin-proposal-class-properties": "~7.1.0",
+    "@babel/plugin-proposal-object-rest-spread": "~7.0.0",
+    "@babel/preset-env": "~7.1.0",
+    "@babel/preset-typescript": "~7.1.0",
+    "@types/koa": "~2.0.46",
+    "@types/lodash": "~4.14.116",
+    "@types/node": "~10.11.4",
+    "babel-core": "~7.0.0-bridge.0",
+    "babel-jest": "~23.6.0",
+    "jest": "~23.6.0",
+    "tslint": "~5.11.0",
+    "typescript": "~3.1.1"
+  },
+  "dependencies": {
+    "chalk": "~2.4.1",
+    "koa": "~2.5.3",
+    "path-to-regexp": "~2.4.0"
+  }
+}
