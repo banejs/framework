@@ -10,7 +10,8 @@
     "build": "npm run build:clean && npm run build:types && npm run build:js",
     "build:clean": "rm -rf ./lib",
     "build:types": "tsc --emitDeclarationOnly",
-    "build:js": "babel src --out-dir lib --extensions \".ts,.tsx\""
+    "build:js": "babel src --out-dir lib --extensions \".ts,.tsx\"",
+    "prepublish": "npm run build && cp ./package.json lib && cd ./lib"
   },
   "repository": {
     "type": "git",
