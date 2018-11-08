@@ -11,7 +11,10 @@
     "build:clean": "rm -rf ./lib",
     "build:types": "tsc --emitDeclarationOnly",
     "build:js": "babel src --out-dir lib --extensions \".ts,.tsx\"",
-    "prepublishOnly": "npm run build && cp ./package.json lib && cd ./lib"
+    "github": "npm run github:tag && npm run github:push",
+    "github:tag": "git tag v$npm_package_version",
+    "github:push": "git push --tags",
+    "prepublishOnly": "npm run github && npm run build && cp ./package.json lib && cd ./lib"
   },
   "repository": {
     "type": "git",
