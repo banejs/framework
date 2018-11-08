@@ -24,6 +24,8 @@
     "banejs",
     "framework",
     "server",
+    "env",
+    "config",
     "router",
     "container",
     "inversion of control",
