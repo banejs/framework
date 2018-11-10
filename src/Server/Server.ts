@@ -3,16 +3,16 @@ import { Server as HttpServer } from 'http';
 import escape from 'lodash/escape';
 
 import LoggerInterface from '@banejs/logger/LoggerInterface';
+import ExceptionInterface from '@banejs/exceptions/ExceptionInterface';
+
+import normalizeError from '@banejs/exceptions/lib/normalizeError';
 
 import ServerInterface from './ServerInterface';
 import EnvInterface from '../Env/EnvInterface';
 import RouterInterface from '../Router/RouterInterface';
-import ExceptionInterface from '../Exceptions/ExceptionInterface';
 
 import { RouteType } from '../Router/Types/RouteType';
 import { MethodType } from '../Router/Types/MethodType';
-
-import normalizeError from '../Exceptions/lib/normalizeError';
 
 export default class Server implements ServerInterface {
     private env: EnvInterface;

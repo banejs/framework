@@ -1,6 +1,6 @@
-import RouterExceptionInterface from './RouterExceptionInterface';
+import Exception from '@banejs/exceptions/Exception';
 
-import Exception from '../../Exceptions/Exception';
+import RouterExceptionInterface from './RouterExceptionInterface';
 
 /**
  * Base interface representing a generic exception in a router.
