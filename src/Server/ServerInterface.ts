@@ -1,7 +1,8 @@
 import { Server as HttpServer } from 'http';
 
+import LoggerInterface from '@banejs/logger/LoggerInterface';
+
 import EnvInterface from '../Env/EnvInterface';
-import LoggerInterface from '../Logger/LoggerInterface';
 import RouterInterface from '../Router/RouterInterface';
 
 interface ServerInterface {

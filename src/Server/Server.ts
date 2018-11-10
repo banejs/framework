@@ -2,9 +2,10 @@ import Koa from 'koa';
 import { Server as HttpServer } from 'http';
 import escape from 'lodash/escape';
 
+import LoggerInterface from '@banejs/logger/LoggerInterface';
+
 import ServerInterface from './ServerInterface';
 import EnvInterface from '../Env/EnvInterface';
-import LoggerInterface from '../Logger/LoggerInterface';
 import RouterInterface from '../Router/RouterInterface';
 import ExceptionInterface from '../Exceptions/ExceptionInterface';
 
