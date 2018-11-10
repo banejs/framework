@@ -8,13 +8,14 @@
     "tslint": "tslint --project tsconfig.json --format stylish",
     "jest": "jest --coverage --detectOpenHandles",
     "build": "npm run build:clean && npm run build:types && npm run build:js",
-    "build:clean": "rm -rf ./lib",
+    "build:clean": "rm -rf ./build",
     "build:types": "tsc --emitDeclarationOnly",
-    "build:js": "babel src --out-dir lib --extensions \".ts,.tsx\"",
+    "build:js": "babel src --out-dir build --extensions \".ts,.tsx\"",
     "github": "npm run github:tag && npm run github:push",
     "github:tag": "git tag v$npm_package_version",
     "github:push": "git push --tags",
-    "prepublishOnly": "npm run github && npm run build && cp ./package.json lib && cd ./lib"
+    "prepublish-package": "npm run test && npm run build && npm run prepublish-package:copy && npm run github",
+    "prepublish-package:copy": "cp ./package.json README.md LICENSE build"
   },
   "repository": {
     "type": "git",
