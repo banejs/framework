@@ -28,9 +28,6 @@
     "env",
     "config",
     "router",
-    "container",
-    "inversion of control",
-    "ioc",
     "typescript"
   ],
   "author": "Anton Drobot",
@@ -56,6 +53,7 @@
     "typescript": "~3.1.6"
   },
   "dependencies": {
+    "@banejs/container": "^1.0.0-beta.0",
     "@banejs/exceptions": "^1.0.0-beta.0",
     "@banejs/logger": "^1.0.0-beta.3",
     "koa": "~2.6.1",

@@ -1,5 +1,6 @@
+import Container from '@banejs/container/Container';
+
 import Application from '../Application';
-import Container from '../../Container/Container';
 
 describe('Application', () => {
     describe('#handle(callback)', () => {

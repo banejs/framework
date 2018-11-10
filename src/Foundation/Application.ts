@@ -1,5 +1,6 @@
+import ContainerInterface from '@banejs/container/ContainerInterface';
+
 import ApplicationInterface from './ApplicationInterface';
-import ContainerInterface from '../Container/ContainerInterface';
 
 /**
  * @author Anton Drobot
