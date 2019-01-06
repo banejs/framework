@@ -36,6 +36,6 @@ interface ServerInterfaceConstructor {
     new(env: EnvInterface, logger: LoggerInterface, router: RouterInterface): ServerInterface;
 }
 
-declare var ServerInterface: ServerInterfaceConstructor;
+declare const ServerInterface: ServerInterfaceConstructor;
 
 export default ServerInterface;

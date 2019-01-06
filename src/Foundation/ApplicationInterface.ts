@@ -25,6 +25,6 @@ interface ApplicationInterfaceConstructor {
     new(container: ContainerInterface): ApplicationInterface;
 }
 
-declare var ApplicationInterface: ApplicationInterfaceConstructor;
+declare const ApplicationInterface: ApplicationInterfaceConstructor;
 
 export default ApplicationInterface;

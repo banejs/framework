@@ -1,3 +1,4 @@
+import Route from '../Route';
 import Router from '../Router';
 import NotFoundException from '../Exceptions/NotFoundException';
 
@@ -5,426 +6,160 @@ describe('Router', () => {
     function handler() {}
 
     describe('#route(route, method, handler, name)', () => {
+        test('should return Route instance', () => {
+            const router = new Router();
+            const route = router.route('/route', 'GET', handler);
+
+            expect(route).toBeInstanceOf(Route)
+        });
+
         test('should create route for one method', () => {
             const router = new Router();
+            const route = router.route('/route', 'GET', handler);
 
-            router.route('/route', 'GET', handler);
-
-            expect(router.routes()).toEqual([
-                {
-                    name: null,
-                    route: '/route',
-                    pattern: /^\/route(?:\/)?$/i,
-                    tokens: [],
-                    params: {},
-                    methods: ['GET'],
-                    handler
-                }
-            ]);
+            expect(route.methods).toEqual(['GET']);
         });
 
         test('should create route for multiple methods', () => {
             const router = new Router();
+            const route = router.route('/route', ['GET', 'POST'], handler);
 
-            router.route('/route', ['GET', 'POST'], handler);
-
-            expect(router.routes()).toEqual([
-                {
-                    name: null,
-                    route: '/route',
-                    pattern: /^\/route(?:\/)?$/i,
-                    tokens: [],
-                    params: {},
-                    methods: ['GET', 'POST'],
-                    handler
-                }
-            ]);
-        });
-
-        test('should create named route', () => {
-            const router = new Router();
-
-            router.route('/route', 'GET', handler, 'route-name');
-
-            expect(router.routes()).toEqual([
-                {
-                    name: 'route-name',
-                    route: '/route',
-                    pattern: /^\/route(?:\/)?$/i,
-                    tokens: [],
-                    params: {},
-                    methods: ['GET'],
-                    handler
-                }
-            ]);
-        });
-
-        test('should create route with tokens', () => {
-            const router = new Router();
-
-            router.route('/user/:name', 'GET', handler);
-
-            expect(router.routes()).toEqual([
-                {
-                    name: null,
-                    route: '/user/:name',
-                    pattern: /^\/user\/([^/]+?)(?:\/)?$/i,
-                    tokens: [
-                        {
-                            delimiter: '/',
-                            name: 'name',
-                            optional: false,
-                            partial: false,
-                            pattern: '[^\\/]+?',
-                            prefix: '/',
-                            repeat: false
-                        }
-                    ],
-                    params: {},
-                    methods: ['GET'],
-                    handler
-                }
-            ]);
+            expect(route.methods).toEqual(['GET', 'POST']);
         });
     });
 
     describe('#get(route, handler, name)', () => {
-        test('should create route for GET and HEAD methods', () => {
+        test('should return Route instance', () => {
             const router = new Router();
+            const route = router.get('/route', handler);
 
-            router.get('/route', handler);
-
-            expect(router.routes()).toEqual([
-                {
-                    name: null,
-                    route: '/route',
-                    pattern: /^\/route(?:\/)?$/i,
-                    tokens: [],
-                    params: {},
-                    methods: ['GET', 'HEAD'],
-                    handler
-                }
-            ]);
+            expect(route).toBeInstanceOf(Route)
         });
 
-        test('should create named route for GET and HEAD methods', () => {
+        test('should create route for GET and HEAD methods', () => {
             const router = new Router();
+            const route = router.get('/route', handler);
 
-            router.get('/route', handler, 'route-name');
-
-            expect(router.routes()).toEqual([
-                {
-                    name: 'route-name',
-                    route: '/route',
-                    pattern: /^\/route(?:\/)?$/i,
-                    tokens: [],
-                    params: {},
-                    methods: ['GET', 'HEAD'],
-                    handler
-                }
-            ]);
+            expect(route.methods).toEqual(['GET', 'HEAD']);
         });
     });
 
     describe('#post(route, handler, name)', () => {
-        test('should create route for POST method', () => {
+        test('should return Route instance', () => {
             const router = new Router();
+            const route = router.post('/route', handler);
 
-            router.post('/route', handler);
-
-            expect(router.routes()).toEqual([
-                {
-                    name: null,
-                    route: '/route',
-                    pattern: /^\/route(?:\/)?$/i,
-                    tokens: [],
-                    params: {},
-                    methods: ['POST'],
-                    handler
-                }
-            ]);
+            expect(route).toBeInstanceOf(Route)
         });
 
-        test('should create named route for POST method', () => {
+        test('should create route for POST method', () => {
             const router = new Router();
+            const route = router.post('/route', handler);
 
-            router.post('/route', handler, 'route-name');
-
-            expect(router.routes()).toEqual([
-                {
-                    name: 'route-name',
-                    route: '/route',
-                    pattern: /^\/route(?:\/)?$/i,
-                    tokens: [],
-                    params: {},
-                    methods: ['POST'],
-                    handler
-                }
-            ]);
+            expect(route.methods).toEqual(['POST']);
         });
     });
 
     describe('#put(route, handler, name)', () => {
-        test('should create route for PUT method', () => {
+        test('should return Route instance', () => {
             const router = new Router();
+            const route = router.put('/route', handler);
 
-            router.put('/route', handler);
-
-            expect(router.routes()).toEqual([
-                {
-                    name: null,
-                    route: '/route',
-                    pattern: /^\/route(?:\/)?$/i,
-                    tokens: [],
-                    params: {},
-                    methods: ['PUT'],
-                    handler
-                }
-            ]);
+            expect(route).toBeInstanceOf(Route)
         });
 
-        test('should create named route for PUT method', () => {
+        test('should create route for PUT method', () => {
             const router = new Router();
+            const route = router.put('/route', handler);
 
-            router.put('/route', handler, 'route-name');
-
-            expect(router.routes()).toEqual([
-                {
-                    name: 'route-name',
-                    route: '/route',
-                    pattern: /^\/route(?:\/)?$/i,
-                    tokens: [],
-                    params: {},
-                    methods: ['PUT'],
-                    handler
-                }
-            ]);
+            expect(route.methods).toEqual(['PUT']);
         });
     });
 
     describe('#patch(route, handler, name)', () => {
-        test('should create route for PATCH method', () => {
+        test('should return Route instance', () => {
             const router = new Router();
+            const route = router.patch('/route', handler);
 
-            router.patch('/route', handler);
-
-            expect(router.routes()).toEqual([
-                {
-                    name: null,
-                    route: '/route',
-                    pattern: /^\/route(?:\/)?$/i,
-                    tokens: [],
-                    params: {},
-                    methods: ['PATCH'],
-                    handler
-                }
-            ]);
+            expect(route).toBeInstanceOf(Route)
         });
 
-        test('should create named route for PATCH method', () => {
+        test('should create route for POST method', () => {
             const router = new Router();
+            const route = router.patch('/route', handler);
 
-            router.patch('/route', handler, 'route-name');
-
-            expect(router.routes()).toEqual([
-                {
-                    name: 'route-name',
-                    route: '/route',
-                    pattern: /^\/route(?:\/)?$/i,
-                    tokens: [],
-                    params: {},
-                    methods: ['PATCH'],
-                    handler
-                }
-            ]);
+            expect(route.methods).toEqual(['PATCH']);
         });
     });
 
     describe('#delete(route, handler, name)', () => {
-        test('should create route for DELETE method', () => {
+        test('should return Route instance', () => {
             const router = new Router();
+            const route = router.delete('/route', handler);
 
-            router.delete('/route', handler);
-
-            expect(router.routes()).toEqual([
-                {
-                    name: null,
-                    route: '/route',
-                    pattern: /^\/route(?:\/)?$/i,
-                    tokens: [],
-                    params: {},
-                    methods: ['DELETE'],
-                    handler
-                }
-            ]);
+            expect(route).toBeInstanceOf(Route)
         });
 
-        test('should create named route for DELETE method', () => {
+        test('should create route for POST method', () => {
             const router = new Router();
+            const route = router.delete('/route', handler);
 
-            router.delete('/route', handler, 'route-name');
-
-            expect(router.routes()).toEqual([
-                {
-                    name: 'route-name',
-                    route: '/route',
-                    pattern: /^\/route(?:\/)?$/i,
-                    tokens: [],
-                    params: {},
-                    methods: ['DELETE'],
-                    handler
-                }
-            ]);
+            expect(route.methods).toEqual(['DELETE']);
         });
     });
 
     describe('#options(route, handler, name)', () => {
-        test('should create route for OPTIONS method', () => {
+        test('should return Route instance', () => {
             const router = new Router();
+            const route = router.options('/route', handler);
 
-            router.options('/route', handler);
-
-            expect(router.routes()).toEqual([
-                {
-                    name: null,
-                    route: '/route',
-                    pattern: /^\/route(?:\/)?$/i,
-                    tokens: [],
-                    params: {},
-                    methods: ['OPTIONS'],
-                    handler
-                }
-            ]);
+            expect(route).toBeInstanceOf(Route)
         });
 
-        test('should create named route for OPTIONS method', () => {
+        test('should create route for POST method', () => {
             const router = new Router();
+            const route = router.options('/route', handler);
 
-            router.options('/route', handler, 'route-name');
-
-            expect(router.routes()).toEqual([
-                {
-                    name: 'route-name',
-                    route: '/route',
-                    pattern: /^\/route(?:\/)?$/i,
-                    tokens: [],
-                    params: {},
-                    methods: ['OPTIONS'],
-                    handler
-                }
-            ]);
+            expect(route.methods).toEqual(['OPTIONS']);
         });
     });
 
     describe('#match(route, methods, handler, name)', () => {
-        test('should create route for GET method', () => {
+        test('should return Route instance', () => {
             const router = new Router();
+            const route = router.match('/route', ['GET', 'POST', 'PUT'], handler);
 
-            router.match('/route', ['GET'], handler);
-
-            expect(router.routes()).toEqual([
-                {
-                    name: null,
-                    route: '/route',
-                    pattern: /^\/route(?:\/)?$/i,
-                    tokens: [],
-                    params: {},
-                    methods: ['GET'],
-                    handler
-                }
-            ]);
+            expect(route).toBeInstanceOf(Route)
         });
 
-        test('should create named route for GET method', () => {
+        test('should create route for GET method', () => {
             const router = new Router();
+            const route = router.match('/route', ['GET'], handler);
 
-            router.match('/route', ['GET'], handler, 'route-name');
-
-            expect(router.routes()).toEqual([
-                {
-                    name: 'route-name',
-                    route: '/route',
-                    pattern: /^\/route(?:\/)?$/i,
-                    tokens: [],
-                    params: {},
-                    methods: ['GET'],
-                    handler
-                }
-            ]);
+            expect(route.methods).toEqual(['GET']);
         });
 
         test('should create route for GET, POST and PUT methods', () => {
             const router = new Router();
+            const route = router.match('/route', ['GET', 'POST', 'PUT'], handler);
 
-            router.match('/route', ['GET', 'POST', 'PUT'], handler);
-
-            expect(router.routes()).toEqual([
-                {
-                    name: null,
-                    route: '/route',
-                    pattern: /^\/route(?:\/)?$/i,
-                    tokens: [],
-                    params: {},
-                    methods: ['GET', 'POST', 'PUT'],
-                    handler
-                }
-            ]);
-        });
-
-        test('should create named route for GET, POST and PUT methods', () => {
-            const router = new Router();
-
-            router.match('/route', ['GET', 'POST', 'PUT'], handler, 'route-name');
-
-            expect(router.routes()).toEqual([
-                {
-                    name: 'route-name',
-                    route: '/route',
-                    pattern: /^\/route(?:\/)?$/i,
-                    tokens: [],
-                    params: {},
-                    methods: ['GET', 'POST', 'PUT'],
-                    handler
-                }
-            ]);
+            expect(route.methods).toEqual(['GET', 'POST', 'PUT']);
         });
     });
 
     describe('#any(route, handler, name)', () => {
-        test('should create route for GET, HEAD, POST, PUT, PATCH, DELETE and OPTIONS methods', () => {
+        test('should return Route instance', () => {
             const router = new Router();
+            const route = router.any('/route', handler);
 
-            router.any('/route', handler);
-
-            expect(router.routes()).toEqual([
-                {
-                    name: null,
-                    route: '/route',
-                    pattern: /^\/route(?:\/)?$/i,
-                    tokens: [],
-                    params: {},
-                    methods: ['GET', 'HEAD', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
-                    handler
-                }
-            ]);
+            expect(route).toBeInstanceOf(Route)
         });
 
-        test('should create named route for GET, HEAD, POST, PUT, PATCH, DELETE and OPTIONS methods', () => {
+        test('should create route for GET, HEAD, POST, PUT, PATCH, DELETE and OPTIONS methods', () => {
             const router = new Router();
+            const route = router.any('/route', handler);
 
-            router.any('/route', handler, 'route-name');
-
-            expect(router.routes()).toEqual([
-                {
-                    name: 'route-name',
-                    route: '/route',
-                    pattern: /^\/route(?:\/)?$/i,
-                    tokens: [],
-                    params: {},
-                    methods: ['GET', 'HEAD', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
-                    handler
-                }
-            ]);
+            expect(route.methods).toEqual(['GET', 'HEAD', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS']);
         });
     });
 
@@ -440,17 +175,7 @@ describe('Router', () => {
 
             router.route('/route', 'GET', handler);
 
-            expect(router.routes()).toEqual([
-                {
-                    name: null,
-                    route: '/route',
-                    pattern: /^\/route(?:\/)?$/i,
-                    tokens: [],
-                    params: {},
-                    methods: ['GET'],
-                    handler
-                }
-            ]);
+            expect(router.routes()).toHaveLength(1);
         });
 
         test('should return two routes', () => {
@@ -459,26 +184,7 @@ describe('Router', () => {
             router.route('/route1', 'GET', handler);
             router.route('/route2', 'POST', handler);
 
-            expect(router.routes()).toEqual([
-                {
-                    name: null,
-                    route: '/route1',
-                    pattern: /^\/route1(?:\/)?$/i,
-                    tokens: [],
-                    params: {},
-                    methods: ['GET'],
-                    handler
-                },
-                {
-                    name: null,
-                    route: '/route2',
-                    pattern: /^\/route2(?:\/)?$/i,
-                    tokens: [],
-                    params: {},
-                    methods: ['POST'],
-                    handler
-                }
-            ]);
+            expect(router.routes()).toHaveLength(2);
         });
     });
 
@@ -488,71 +194,7 @@ describe('Router', () => {
 
             router.route('/route', 'GET', handler);
 
-            expect(router.resolve('/route', 'GET')).toEqual({
-                name: null,
-                route: '/route',
-                params: {},
-                pattern: /^\/route(?:\/)?$/i,
-                tokens: [],
-                methods: ['GET'],
-                handler
-            });
-        });
-
-        test('should return route with params', () => {
-            const router = new Router();
-
-            router.route('/user/:name', 'GET', handler);
-
-            expect(router.resolve('/user/johndoe', 'GET')).toEqual({
-                name: null,
-                route: '/user/:name',
-                params: {
-                    name: 'johndoe'
-                },
-                pattern: /^\/user\/([^/]+?)(?:\/)?$/i,
-                tokens: [
-                    {
-                        delimiter: '/',
-                        name: 'name',
-                        optional: false,
-                        partial: false,
-                        pattern: '[^\\/]+?',
-                        prefix: '/',
-                        repeat: false
-                    }
-                ],
-                methods: ['GET'],
-                handler
-            });
-        });
-
-        test('should return route with undefined name param', () => {
-            const router = new Router();
-
-            router.route('/user/:name?', 'GET', handler);
-
-            expect(router.resolve('/user', 'GET')).toEqual({
-                name: null,
-                route: '/user/:name?',
-                params: {
-                    name: undefined
-                },
-                pattern: /^\/user(?:\/([^/]+?))?(?:\/)?$/i,
-                tokens: [
-                    {
-                        delimiter: '/',
-                        name: 'name',
-                        optional: true,
-                        partial: false,
-                        pattern: '[^\\/]+?',
-                        prefix: '/',
-                        repeat: false
-                    }
-                ],
-                methods: ['GET'],
-                handler
-            });
+            expect(router.resolve('/route', 'GET')).toBeInstanceOf(Route);
         });
 
         test('should throw NotFoundException because no route was found', () => {

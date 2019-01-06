@@ -1,5 +1,6 @@
-import Koa from 'koa';
 import { Server as HttpServer } from 'http';
+
+import Koa from 'koa';
 import escape from 'lodash/escape';
 
 import LoggerInterface from '@banejs/logger/LoggerInterface';
@@ -9,9 +10,9 @@ import normalizeError from '@banejs/exceptions/lib/normalizeError';
 
 import ServerInterface from './ServerInterface';
 import EnvInterface from '../Env/EnvInterface';
+import RouteInterface from '../Router/RouteInterface';
 import RouterInterface from '../Router/RouterInterface';
 
-import { RouteType } from '../Router/Types/RouteType';
 import { MethodType } from '../Router/Types/MethodType';
 
 export default class Server implements ServerInterface {
@@ -43,13 +44,13 @@ export default class Server implements ServerInterface {
     private async handle(context: Koa.Context): Promise<void> {
         try {
             const method: MethodType = context.method as MethodType;
-            const resolvedRoute: RouteType = this.router.resolve(context.url, method);
+            const route: RouteInterface = this.router.resolve(context.url, method);
 
             /**
              * Assign route path parameters to context state.
              */
-            context.state.params = resolvedRoute.params;
-            context.body = await resolvedRoute.handler(context);
+            context.state.params = route.getRouteParams(context.url);
+            context.body = await route.handler(context);
         } catch (error) {
             const normalizedError: ExceptionInterface = normalizeError(error);
 

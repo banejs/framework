@@ -1,4 +1,5 @@
-import { RouteType } from './Types/RouteType';
+import RouteInterface from './RouteInterface';
+
 import { MethodType } from './Types/MethodType';
 import { HandlerType } from './Types/HandlerType';
 
@@ -6,92 +7,84 @@ export default interface RouterInterface {
     /**
      * Returns all registered routes.
      *
-     * @return {Array<RouteType>}
+     * @return {ReadonlyArray<RouteInterface>}
      */
-    routes(): Array<RouteType>;
+    routes(): ReadonlyArray<RouteInterface>;
 
     /**
      * A low level method to register route with path, method and handler.
      *
      * @param {string} route - Route expression.
-     * @param {MethodType|Array<MethodType>} method - HTTP method.
+     * @param {MethodType|ReadonlyArray<MethodType>} method - HTTP method.
      * @param {HandlerType} handler - Handler to respond to a given request.
-     * @param {string} [name] - Route name.
      */
-    route(route: string, method: MethodType | Array<MethodType>, handler: HandlerType, name?: string): void;
+    route(route: string, method: MethodType | ReadonlyArray<MethodType>, handler: HandlerType): RouteInterface;
 
     /**
      * Register route with GET method.
      *
      * @param {string} route - Route expression.
      * @param {HandlerType} handler - Handler to respond to a given request.
-     * @param {string} [name] - Route name.
      */
-    get(route: string, handler: HandlerType, name?: string): void;
+    get(route: string, handler: HandlerType): RouteInterface;
 
     /**
      * Register route with POST method.
      *
      * @param {string} route - Route expression.
      * @param {HandlerType} handler - Handler to respond to a given request.
-     * @param {string} [name] - Route name.
      */
-    post(route: string, handler: HandlerType, name?: string): void;
+    post(route: string, handler: HandlerType): RouteInterface;
 
     /**
      * Register route with PUT method.
      *
      * @param {string} route - Route expression.
      * @param {HandlerType} handler - Handler to respond to a given request.
-     * @param {string} [name] - Route name.
      */
-    put(route: string, handler: HandlerType, name?: string): void;
+    put(route: string, handler: HandlerType): RouteInterface;
 
     /**
      * Register route with PATCH method.
      *
      * @param {string} route - Route expression.
      * @param {HandlerType} handler - Handler to respond to a given request.
-     * @param {string} [name] - Route name.
      */
-    patch(route: string, handler: HandlerType, name?: string): void;
+    patch(route: string, handler: HandlerType): RouteInterface;
 
     /**
      * Register route with DELETE method.
      *
      * @param {string} route - Route expression.
      * @param {HandlerType} handler - Handler to respond to a given request.
-     * @param {string} [name] - Route name.
      */
-    delete(route: string, handler: HandlerType, name?: string): void;
+    delete(route: string, handler: HandlerType): RouteInterface;
 
     /**
      * Register route with OPTIONS method.
      *
      * @param {string} route - Route expression.
      * @param {HandlerType} handler - Handler to respond to a given request.
-     * @param {string} [name] - Route name.
      */
-    options(route: string, handler: HandlerType, name?: string): void;
+    options(route: string, handler: HandlerType): RouteInterface;
 
     /**
      * Registers a route with multiple HTTP methods.
      *
      * @param {string} route - Route expression.
-     * @param {Array<MethodType>} methods - An array of methods.
+     * @param {ReadonlyArray<MethodType>} methods - An array of methods.
      * @param {HandlerType} handler - Handler to respond to a given request.
      * @param {string} [name] - Route name.
      */
-    match(route: string, methods: Array<MethodType>, handler: HandlerType, name?: string): void;
+    match(route: string, methods: ReadonlyArray<MethodType>, handler: HandlerType, name?: string): RouteInterface;
 
     /**
      * Registers route for all HTTP methods.
      *
      * @param {string} route - Route expression.
      * @param {HandlerType} handler - Handler to respond to a given request.
-     * @param {string} [name] - Route name.
      */
-    any(route: string, handler: HandlerType, name?: string): void;
+    any(route: string, handler: HandlerType): RouteInterface;
 
     /**
      * Resolves route for a given url and HTTP method.
@@ -99,7 +92,7 @@ export default interface RouterInterface {
      * @param {string} path - Path to url.
      * @param {MethodType} method - HTTP method.
      *
-     * @return {RouteType}
+     * @return {RouteInterface}
      */
-    resolve(path: string, method: MethodType): RouteType;
+    resolve(path: string, method: MethodType): RouteInterface;
 }
