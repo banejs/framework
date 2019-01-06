@@ -68,7 +68,7 @@ export default class Server implements ServerInterface {
 
             if (this.env.isDevelopment) {
                 context.type = 'text/html';
-                context.body = `<pre>${escape(error.stack)}</pre>`;
+                context.body = `<pre>${escape(normalizedError.stack)}</pre>`;
             }
 
             this.logger.error(normalizedError);
