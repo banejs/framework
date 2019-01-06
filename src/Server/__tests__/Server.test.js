@@ -192,7 +192,7 @@ describe('Server', () => {
                         });
 
                         res.on('end', () => {
-                            expect(data).toBe(escape(error.stack));
+                            expect(data).toBe(`<pre>${escape(error.stack)}</pre>`);
                             httpServer.close();
                             done();
                         });
