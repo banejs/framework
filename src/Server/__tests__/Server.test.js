@@ -137,6 +137,75 @@ describe('Server', () => {
             });
         });
 
+        test('should register route middleware', (done) => {
+            const router = new Router();
+
+            router
+                .get('/', () => 'Hello, world!')
+                .middleware(async (ctx, next) => {
+                    await next();
+                    ctx.set('x-middleware-message', 'some message');
+                });
+
+            const server = new Server(env, logger, router);
+
+            const httpServer = server.listen('localhost', 3000, () => {
+                http
+                    .get('http://localhost:3000', (res) => {
+                        expect(res.headers['x-middleware-message']).toBe('some message');
+                        httpServer.close();
+                        done();
+                    })
+                    .on('error', (err) => {
+                        httpServer.close();
+                        done.fail(err);
+                    });
+            });
+
+            httpServer.on('error', (err) => {
+                httpServer.close();
+                done.fail(err);
+            });
+        });
+
+        test('should register route array of middleware', (done) => {
+            const router = new Router();
+
+            router
+                .get('/', () => 'Hello, world!')
+                .middleware([
+                    async (ctx, next) => {
+                        await next();
+                        ctx.set('x-middleware-message-1', 'some message 1');
+                    },
+                    async (ctx, next) => {
+                        await next();
+                        ctx.set('x-middleware-message-2', 'some message 2');
+                    }
+                ]);
+
+            const server = new Server(env, logger, router);
+
+            const httpServer = server.listen('localhost', 3000, () => {
+                http
+                    .get('http://localhost:3000', (res) => {
+                        expect(res.headers['x-middleware-message-1']).toBe('some message 1');
+                        expect(res.headers['x-middleware-message-2']).toBe('some message 2');
+                        httpServer.close();
+                        done();
+                    })
+                    .on('error', (err) => {
+                        httpServer.close();
+                        done.fail(err);
+                    });
+            });
+
+            httpServer.on('error', (err) => {
+                httpServer.close();
+                done.fail(err);
+            });
+        });
+
         test('should return "Internal Server Error"', (done) => {
             const router = new Router();
             const error = new Error('some error');

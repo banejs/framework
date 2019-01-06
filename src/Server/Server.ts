@@ -1,6 +1,7 @@
 import { Server as HttpServer } from 'http';
 
 import Koa from 'koa';
+import koaCompose from 'koa-compose';
 import escape from 'lodash/escape';
 
 import LoggerInterface from '@banejs/logger/LoggerInterface';
@@ -36,12 +37,13 @@ export default class Server implements ServerInterface {
      * Request handler to respond to a given HTTP request.
      *
      * @param {Koa.Context} context
+     * @param {() => Promise<any>} next
      *
-     * @return {Promise.<void>}
+     * @return {Promise<void>}
      *
      * @private
      */
-    private async handle(context: Koa.Context): Promise<void> {
+    private async handle(context: Koa.Context, next: () => Promise<any>): Promise<void> {
         try {
             const method: MethodType = context.method as MethodType;
             const route: RouteInterface = this.router.resolve(context.url, method);
@@ -50,6 +52,14 @@ export default class Server implements ServerInterface {
              * Assign route path parameters to context state.
              */
             context.state.params = route.getRouteParams(context.url);
+
+            /**
+             * Apply middleware to request.
+             */
+            const middleware: Koa.Middleware = koaCompose(route.middlewareList);
+
+            await middleware(context, next);
+
             context.body = await route.handler(context);
         } catch (error) {
             const normalizedError: ExceptionInterface = normalizeError(error);
