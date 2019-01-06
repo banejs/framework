@@ -1,1 +1,3 @@
-export type HandlerType = (...args: any) => string | Promise<string>;
+import Koa from 'koa';
+
+export type HandlerType = (context: Koa.Context) => any;
