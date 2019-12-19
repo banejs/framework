@@ -1,5 +1,5 @@
 import Koa from 'koa';
-import pathToRegexp from 'path-to-regexp';
+import { pathToRegexp } from 'path-to-regexp';
 
 import { TokenType } from './Types/TokenType';
 import { MethodType } from './Types/MethodType';

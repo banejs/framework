@@ -130,7 +130,7 @@
         "no-unsafe-finally": true,
         "no-unused-expression": true,
         // "no-unused-variable" - deprecated in #3919
-        "no-use-before-declare": true,
+        // "no-use-before-declare"  - deprecated
         "no-var-keyword": true,
         "no-void-expression": true,
         "prefer-conditional-expression": true,
@@ -200,7 +200,7 @@
             "multiline"
         ],
         "binary-expression-operand-order": false,
-        "callable-types": true,
+        "callable-types": false,
         "class-name": true,
         "comment-format": true,
         "completed-docs": false,

@@ -1,9 +1,3 @@
-export type TokenType = {
-    name: string | number;
-    prefix: string;
-    delimiter: string;
-    optional: boolean;
-    repeat: boolean;
-    pattern: string;
-    partial: boolean;
-};
+import { Key } from 'path-to-regexp';
+
+export type TokenType = Key;

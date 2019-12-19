@@ -1,10 +1,11 @@
 import http from 'http';
 
 import Koa from 'koa';
+import escape from 'lodash/escape';
+import Exception from '@banejs/exceptions/Exception';
 
 import Server from '../Server';
 import Router from '../../Router/Router';
-import escape from 'lodash/escape';
 
 describe('Server', () => {
     const env = {
@@ -244,7 +245,7 @@ describe('Server', () => {
 
         test('should return error description for development environment', (done) => {
             const router = new Router();
-            const error = new Error('some error');
+            const error = new Exception('some error');
 
             router.get('/', () => {
                 throw error;
