@@ -1,28 +1,32 @@
+import RouteInterface from '../RouteInterface';
+import RouterInterface from '../RouterInterface';
+
 import Route from '../Route';
 import Router from '../Router';
 import NotFoundException from '../Exceptions/NotFoundException';
 
 describe('Router', () => {
+    // tslint:disable-next-line
     function handler() {}
 
     describe('#route(route, method, handler, name)', () => {
         test('should return Route instance', () => {
-            const router = new Router();
-            const route = router.route('/route', 'GET', handler);
+            const router: RouterInterface = new Router();
+            const route: RouteInterface = router.route('/route', 'GET', handler);
 
-            expect(route).toBeInstanceOf(Route)
+            expect(route).toBeInstanceOf(Route);
         });
 
         test('should create route for one method', () => {
-            const router = new Router();
-            const route = router.route('/route', 'GET', handler);
+            const router: RouterInterface = new Router();
+            const route: RouteInterface = router.route('/route', 'GET', handler);
 
             expect(route.methods).toEqual(['GET']);
         });
 
         test('should create route for multiple methods', () => {
-            const router = new Router();
-            const route = router.route('/route', ['GET', 'POST'], handler);
+            const router: RouterInterface = new Router();
+            const route: RouteInterface = router.route('/route', ['GET', 'POST'], handler);
 
             expect(route.methods).toEqual(['GET', 'POST']);
         });
@@ -30,15 +34,15 @@ describe('Router', () => {
 
     describe('#get(route, handler, name)', () => {
         test('should return Route instance', () => {
-            const router = new Router();
-            const route = router.get('/route', handler);
+            const router: RouterInterface = new Router();
+            const route: RouteInterface = router.get('/route', handler);
 
-            expect(route).toBeInstanceOf(Route)
+            expect(route).toBeInstanceOf(Route);
         });
 
         test('should create route for GET and HEAD methods', () => {
-            const router = new Router();
-            const route = router.get('/route', handler);
+            const router: RouterInterface = new Router();
+            const route: RouteInterface = router.get('/route', handler);
 
             expect(route.methods).toEqual(['GET', 'HEAD']);
         });
@@ -46,15 +50,15 @@ describe('Router', () => {
 
     describe('#post(route, handler, name)', () => {
         test('should return Route instance', () => {
-            const router = new Router();
-            const route = router.post('/route', handler);
+            const router: RouterInterface = new Router();
+            const route: RouteInterface = router.post('/route', handler);
 
-            expect(route).toBeInstanceOf(Route)
+            expect(route).toBeInstanceOf(Route);
         });
 
         test('should create route for POST method', () => {
-            const router = new Router();
-            const route = router.post('/route', handler);
+            const router: RouterInterface = new Router();
+            const route: RouteInterface = router.post('/route', handler);
 
             expect(route.methods).toEqual(['POST']);
         });
@@ -62,15 +66,15 @@ describe('Router', () => {
 
     describe('#put(route, handler, name)', () => {
         test('should return Route instance', () => {
-            const router = new Router();
-            const route = router.put('/route', handler);
+            const router: RouterInterface = new Router();
+            const route: RouteInterface = router.put('/route', handler);
 
-            expect(route).toBeInstanceOf(Route)
+            expect(route).toBeInstanceOf(Route);
         });
 
         test('should create route for PUT method', () => {
-            const router = new Router();
-            const route = router.put('/route', handler);
+            const router: RouterInterface = new Router();
+            const route: RouteInterface = router.put('/route', handler);
 
             expect(route.methods).toEqual(['PUT']);
         });
@@ -78,15 +82,15 @@ describe('Router', () => {
 
     describe('#patch(route, handler, name)', () => {
         test('should return Route instance', () => {
-            const router = new Router();
-            const route = router.patch('/route', handler);
+            const router: RouterInterface = new Router();
+            const route: RouteInterface = router.patch('/route', handler);
 
-            expect(route).toBeInstanceOf(Route)
+            expect(route).toBeInstanceOf(Route);
         });
 
         test('should create route for POST method', () => {
-            const router = new Router();
-            const route = router.patch('/route', handler);
+            const router: RouterInterface = new Router();
+            const route: RouteInterface = router.patch('/route', handler);
 
             expect(route.methods).toEqual(['PATCH']);
         });
@@ -94,15 +98,15 @@ describe('Router', () => {
 
     describe('#delete(route, handler, name)', () => {
         test('should return Route instance', () => {
-            const router = new Router();
-            const route = router.delete('/route', handler);
+            const router: RouterInterface = new Router();
+            const route: RouteInterface = router.delete('/route', handler);
 
-            expect(route).toBeInstanceOf(Route)
+            expect(route).toBeInstanceOf(Route);
         });
 
         test('should create route for POST method', () => {
-            const router = new Router();
-            const route = router.delete('/route', handler);
+            const router: RouterInterface = new Router();
+            const route: RouteInterface = router.delete('/route', handler);
 
             expect(route.methods).toEqual(['DELETE']);
         });
@@ -110,15 +114,15 @@ describe('Router', () => {
 
     describe('#options(route, handler, name)', () => {
         test('should return Route instance', () => {
-            const router = new Router();
-            const route = router.options('/route', handler);
+            const router: RouterInterface = new Router();
+            const route: RouteInterface = router.options('/route', handler);
 
-            expect(route).toBeInstanceOf(Route)
+            expect(route).toBeInstanceOf(Route);
         });
 
         test('should create route for POST method', () => {
-            const router = new Router();
-            const route = router.options('/route', handler);
+            const router: RouterInterface = new Router();
+            const route: RouteInterface = router.options('/route', handler);
 
             expect(route.methods).toEqual(['OPTIONS']);
         });
@@ -126,22 +130,22 @@ describe('Router', () => {
 
     describe('#match(route, methods, handler, name)', () => {
         test('should return Route instance', () => {
-            const router = new Router();
-            const route = router.match('/route', ['GET', 'POST', 'PUT'], handler);
+            const router: RouterInterface = new Router();
+            const route: RouteInterface = router.match('/route', ['GET', 'POST', 'PUT'], handler);
 
-            expect(route).toBeInstanceOf(Route)
+            expect(route).toBeInstanceOf(Route);
         });
 
         test('should create route for GET method', () => {
-            const router = new Router();
-            const route = router.match('/route', ['GET'], handler);
+            const router: RouterInterface = new Router();
+            const route: RouteInterface = router.match('/route', ['GET'], handler);
 
             expect(route.methods).toEqual(['GET']);
         });
 
         test('should create route for GET, POST and PUT methods', () => {
-            const router = new Router();
-            const route = router.match('/route', ['GET', 'POST', 'PUT'], handler);
+            const router: RouterInterface = new Router();
+            const route: RouteInterface = router.match('/route', ['GET', 'POST', 'PUT'], handler);
 
             expect(route.methods).toEqual(['GET', 'POST', 'PUT']);
         });
@@ -149,15 +153,15 @@ describe('Router', () => {
 
     describe('#any(route, handler, name)', () => {
         test('should return Route instance', () => {
-            const router = new Router();
-            const route = router.any('/route', handler);
+            const router: RouterInterface = new Router();
+            const route: RouteInterface = router.any('/route', handler);
 
-            expect(route).toBeInstanceOf(Route)
+            expect(route).toBeInstanceOf(Route);
         });
 
         test('should create route for GET, HEAD, POST, PUT, PATCH, DELETE and OPTIONS methods', () => {
-            const router = new Router();
-            const route = router.any('/route', handler);
+            const router: RouterInterface = new Router();
+            const route: RouteInterface = router.any('/route', handler);
 
             expect(route.methods).toEqual(['GET', 'HEAD', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS']);
         });
@@ -165,13 +169,13 @@ describe('Router', () => {
 
     describe('#routes()', () => {
         test('should return no routes', () => {
-            const router = new Router();
+            const router: RouterInterface = new Router();
 
             expect(router.routes()).toEqual([]);
         });
 
         test('should return one route', () => {
-            const router = new Router();
+            const router: RouterInterface = new Router();
 
             router.route('/route', 'GET', handler);
 
@@ -179,7 +183,7 @@ describe('Router', () => {
         });
 
         test('should return two routes', () => {
-            const router = new Router();
+            const router: RouterInterface = new Router();
 
             router.route('/route1', 'GET', handler);
             router.route('/route2', 'POST', handler);
@@ -190,7 +194,7 @@ describe('Router', () => {
 
     describe('#resolve(path, method)', () => {
         test('should return route', () => {
-            const router = new Router();
+            const router: RouterInterface = new Router();
 
             router.route('/route', 'GET', handler);
 
@@ -198,7 +202,7 @@ describe('Router', () => {
         });
 
         test('should throw NotFoundException because no route was found', () => {
-            const router = new Router();
+            const router: RouterInterface = new Router();
 
             router.route('/route', 'GET', handler);
 
@@ -208,7 +212,7 @@ describe('Router', () => {
         });
 
         test('should throw NotFoundException because route has not POST method', () => {
-            const router = new Router();
+            const router: RouterInterface = new Router();
 
             router.route('/route', 'GET', handler);
 

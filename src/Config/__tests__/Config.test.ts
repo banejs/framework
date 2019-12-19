@@ -1,9 +1,11 @@
+import ConfigInterface from '../ConfigInterface';
+
 import Config from '../Config';
 
 describe('Config', () => {
     describe('#set(id, value)', () => {
         test('should create foo property in store', () => {
-            const config = new Config();
+            const config: ConfigInterface = new Config();
 
             config.set('foo', 'bar');
 
@@ -11,7 +13,7 @@ describe('Config', () => {
         });
 
         test('should replace foo property in store', () => {
-            const config = new Config();
+            const config: ConfigInterface = new Config();
 
             config.set('foo', 'bar');
 
@@ -25,7 +27,7 @@ describe('Config', () => {
 
     describe('#get(id, defaultValue)', () => {
         test('should return value for property', () => {
-            const config = new Config();
+            const config: ConfigInterface = new Config();
 
             config.set('foo', 'bar');
 
@@ -33,13 +35,13 @@ describe('Config', () => {
         });
 
         test('should return default value for property if it does not exists in config', () => {
-            const config = new Config();
+            const config: ConfigInterface = new Config();
 
             expect(config.get('foo', 'bar')).toBe('bar');
         });
 
         test('should return the entire configuration object if the property is not provided', () => {
-            const config = new Config();
+            const config: ConfigInterface = new Config();
 
             config.set('foo', 'bar');
 
@@ -47,7 +49,7 @@ describe('Config', () => {
         });
 
         test('should return value at path of config', () => {
-            const config = new Config();
+            const config: ConfigInterface = new Config();
 
             config.set('foo', { bar: 'baz' });
 
@@ -55,7 +57,7 @@ describe('Config', () => {
         });
 
         test('should return default value for path if it does not exists in config', () => {
-            const config = new Config();
+            const config: ConfigInterface = new Config();
 
             config.set('foo', { bar: 'baz' });
 
@@ -63,7 +65,7 @@ describe('Config', () => {
         });
 
         test('should return second value of array at path of config', () => {
-            const config = new Config();
+            const config: ConfigInterface = new Config();
 
             config.set('foo', ['first', 'second', 'third']);
 
@@ -73,7 +75,7 @@ describe('Config', () => {
 
     describe('#has(id)', () => {
         test('should return true', () => {
-            const config = new Config();
+            const config: ConfigInterface = new Config();
 
             config.set('foo', 'bar');
 
@@ -81,7 +83,7 @@ describe('Config', () => {
         });
 
         test('should return false', () => {
-            const config = new Config();
+            const config: ConfigInterface = new Config();
 
             expect(config.has('foo')).toBe(false);
         });

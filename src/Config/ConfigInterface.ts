@@ -12,12 +12,12 @@ export default interface ConfigInterface {
     /**
      * Get value for a given identifier from config store.
      *
-     * @param {string} id - Configuration identifier to return value for.
+     * @param {string} [id] - Configuration identifier to return value for.
      * @param {*} [defaultValue] - Default value to return when actual value is undefined.
      *
      * @return {*}
      */
-    get(id: string, defaultValue: any): any;
+    get(id?: string, defaultValue?: any): any;
 
     /**
      * Set or update value for a given identifier inside config store.

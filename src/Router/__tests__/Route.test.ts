@@ -1,17 +1,22 @@
+import RouteInterface from '../RouteInterface';
+import { ParamsType } from '../Types/ParamsType';
+
 import Route from '../Route';
 
 describe('Route', () => {
+    /* tslint:disable */
     function handler() {}
     function middleware1() {}
     function middleware2() {}
+    /* tslint:enable */
 
     describe('#contructor(route, method, handler)', () => {
         test('should create route for one method', () => {
-            const route = new Route('/route', 'GET', handler);
+            const route: RouteInterface = new Route('/route', 'GET', handler);
 
             expect(route.name).toBe('/route');
             expect(route.route).toBe('/route');
-            expect(route.pattern).toEqual(/^\/route(?:\/)?$/i);
+            expect(route.pattern).toEqual(/^\/route[\/#\?]?$/i);
             expect(route.tokens).toEqual([]);
             expect(route.methods).toEqual(['GET']);
             expect(route.handler).toBe(handler);
@@ -19,11 +24,11 @@ describe('Route', () => {
         });
 
         test('should create route for multiple methods', () => {
-            const route = new Route('/route', ['GET', 'POST'], handler);
+            const route: RouteInterface = new Route('/route', ['GET', 'POST'], handler);
 
             expect(route.name).toBe('/route');
             expect(route.route).toBe('/route');
-            expect(route.pattern).toEqual(/^\/route(?:\/)?$/i);
+            expect(route.pattern).toEqual(/^\/route[\/#\?]?$/i);
             expect(route.tokens).toEqual([]);
             expect(route.methods).toEqual(['GET', 'POST']);
             expect(route.handler).toBe(handler);
@@ -31,20 +36,18 @@ describe('Route', () => {
         });
 
         test('should create route with tokens', () => {
-            const route = new Route('/user/:name', 'GET', handler);
+            const route: RouteInterface = new Route('/user/:name', 'GET', handler);
 
             expect(route.name).toBe('/user/:name');
             expect(route.route).toBe('/user/:name');
-            expect(route.pattern).toEqual(/^\/user\/([^/]+?)(?:\/)?$/i);
+            expect(route.pattern).toEqual(/^\/user(?:\/([^\/#\?]+?))[\/#\?]?$/i);
             expect(route.tokens).toEqual([
                 {
-                    delimiter: '/',
+                    modifier: '',
                     name: 'name',
-                    optional: false,
-                    partial: false,
-                    pattern: '[^\\/]+?',
+                    pattern: '[^\\/#\\?]+?',
                     prefix: '/',
-                    repeat: false
+                    suffix: ''
                 }
             ]);
             expect(route.methods).toEqual(['GET']);
@@ -55,13 +58,13 @@ describe('Route', () => {
 
     describe('#as(name)', () => {
         test('should create route with custom name', () => {
-            const route = new Route('/route', 'GET', handler);
+            const route: RouteInterface = new Route('/route', 'GET', handler);
 
             route.as('route-name');
 
             expect(route.name).toBe('route-name');
             expect(route.route).toBe('/route');
-            expect(route.pattern).toEqual(/^\/route(?:\/)?$/i);
+            expect(route.pattern).toEqual(/^\/route[\/#\?]?$/i);
             expect(route.tokens).toEqual([]);
             expect(route.methods).toEqual(['GET']);
             expect(route.handler).toBe(handler);
@@ -71,13 +74,13 @@ describe('Route', () => {
 
     describe('#middleware(middleware)', () => {
         test('should create route with one middleware', () => {
-            const route = new Route('/route', 'GET', handler);
+            const route: RouteInterface = new Route('/route', 'GET', handler);
 
             route.middleware(middleware1);
 
             expect(route.name).toBe('/route');
             expect(route.route).toBe('/route');
-            expect(route.pattern).toEqual(/^\/route(?:\/)?$/i);
+            expect(route.pattern).toEqual(/^\/route[\/#\?]?$/i);
             expect(route.tokens).toEqual([]);
             expect(route.methods).toEqual(['GET']);
             expect(route.handler).toBe(handler);
@@ -85,13 +88,13 @@ describe('Route', () => {
         });
 
         test('should create route with two middleware', () => {
-            const route = new Route('/route', 'GET', handler);
+            const route: RouteInterface = new Route('/route', 'GET', handler);
 
             route.middleware([middleware1, middleware2]);
 
             expect(route.name).toBe('/route');
             expect(route.route).toBe('/route');
-            expect(route.pattern).toEqual(/^\/route(?:\/)?$/i);
+            expect(route.pattern).toEqual(/^\/route[\/#\?]?$/i);
             expect(route.tokens).toEqual([]);
             expect(route.methods).toEqual(['GET']);
             expect(route.handler).toBe(handler);
@@ -99,14 +102,14 @@ describe('Route', () => {
         });
 
         test('should add second middleware to route', () => {
-            const route = new Route('/route', 'GET', handler);
+            const route: RouteInterface = new Route('/route', 'GET', handler);
 
             route.middleware(middleware1);
             route.middleware(middleware2);
 
             expect(route.name).toBe('/route');
             expect(route.route).toBe('/route');
-            expect(route.pattern).toEqual(/^\/route(?:\/)?$/i);
+            expect(route.pattern).toEqual(/^\/route[\/#\?]?$/i);
             expect(route.tokens).toEqual([]);
             expect(route.methods).toEqual(['GET']);
             expect(route.handler).toBe(handler);
@@ -116,8 +119,8 @@ describe('Route', () => {
 
     describe('#getRouteParams(route, path)', () => {
         test('should return params', () => {
-            const route = new Route('/user/:name', 'GET', handler);
-            const params = route.getRouteParams('/user/john-doe');
+            const route: RouteInterface = new Route('/user/:name', 'GET', handler);
+            const params: ParamsType = route.getRouteParams('/user/john-doe');
 
             expect(params).toEqual({
                 name: 'john-doe'
@@ -125,8 +128,8 @@ describe('Route', () => {
         });
 
         test('should return params with undefined name param', () => {
-            const route = new Route('/user/:name', 'GET', handler);
-            const params = route.getRouteParams('/user');
+            const route: RouteInterface = new Route('/user/:name', 'GET', handler);
+            const params: ParamsType = route.getRouteParams('/user');
 
             expect(params).toEqual({
                 name: undefined
