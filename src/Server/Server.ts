@@ -111,7 +111,7 @@ export default class Server implements ServerInterface {
         this.appInstance.use(this.handle.bind(this));
 
         return this.appInstance.listen(port, host, () => {
-            this.logger.debug('Serving app on http://{{host}}:{{port}}/', { host, port });
+            this.logger.debug(`Serving app on http://${host}:${port}/`);
 
             if (typeof callback !== 'undefined') {
                 callback();
