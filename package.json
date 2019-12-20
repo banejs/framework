@@ -3,19 +3,19 @@
   "version": "1.0.0-beta.6",
   "description": "BaneJS Framework",
   "scripts": {
-    "test": "npm run type-check && npm run tslint && npm run jest",
-    "type-check": "tsc --noEmit",
+    "test": "npm run typecheck && npm run tslint && npm run jest",
+    "typecheck": "tsc --noEmit",
     "tslint": "tslint --project tsconfig.json --format stylish",
     "jest": "jest --coverage --detectOpenHandles",
-    "build": "npm run build:clean && npm run build:types && npm run build:js",
+    "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s -r 0 && git add CHANGELOG.md",
+    "release": "npm run test && npm run release:tag && npm run release:push",
+    "release:tag": "git tag v$npm_package_version",
+    "release:push": "git push && git push --tags",
+    "build": "npm run build:clean && npm run build:types && npm run build:js && npm run build:copy",
     "build:clean": "rm -rf ./build",
     "build:types": "tsc --emitDeclarationOnly",
     "build:js": "babel src --out-dir build --extensions \".ts,.tsx\"",
-    "github": "npm run github:tag && npm run github:push",
-    "github:tag": "git tag v$npm_package_version",
-    "github:push": "git push --tags",
-    "prepublish-package": "npm run test && npm run build && npm run prepublish-package:copy && npm run github",
-    "prepublish-package:copy": "cp ./package.json README.md LICENSE build"
+    "build:copy": "cp ./package.json README.md CHANGELOG.md LICENSE build"
   },
   "repository": {
     "type": "git",
