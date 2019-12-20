@@ -1,12 +1,12 @@
 import Koa from 'koa';
 import { pathToRegexp } from 'path-to-regexp';
 
-import { TokenType } from './Types/TokenType';
-import { MethodType } from './Types/MethodType';
-import { HandlerType } from './Types/HandlerType';
+import { TokenType } from './types/TokenType';
+import { MethodType } from './types/MethodType';
+import { HandlerType } from './types/HandlerType';
 
 import RouteInterface from './RouteInterface';
-import { ParamsType } from './Types/ParamsType';
+import { ParamsType } from './types/ParamsType';
 
 export default class Route implements RouteInterface {
     /**

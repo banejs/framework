@@ -1,5 +1,5 @@
 import RouteInterface from '../RouteInterface';
-import { ParamsType } from '../Types/ParamsType';
+import { ParamsType } from '../types/ParamsType';
 
 import Route from '../Route';
 

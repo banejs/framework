@@ -1,9 +1,9 @@
 import Koa from 'koa';
 
-import { TokenType } from './Types/TokenType';
-import { MethodType } from './Types/MethodType';
-import { HandlerType } from './Types/HandlerType';
-import { ParamsType } from './Types/ParamsType';
+import { TokenType } from './types/TokenType';
+import { MethodType } from './types/MethodType';
+import { HandlerType } from './types/HandlerType';
+import { ParamsType } from './types/ParamsType';
 
 interface RouteInterface {
     /**

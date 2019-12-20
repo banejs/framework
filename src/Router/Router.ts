@@ -1,8 +1,8 @@
 import RouterInterface from './RouterInterface';
 import RouteInterface from './RouteInterface';
 
-import { MethodType } from './Types/MethodType';
-import { HandlerType } from './Types/HandlerType';
+import { MethodType } from './types/MethodType';
+import { HandlerType } from './types/HandlerType';
 
 import Route from './Route';
 

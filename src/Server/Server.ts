@@ -14,7 +14,7 @@ import EnvInterface from '../Env/EnvInterface';
 import RouteInterface from '../Router/RouteInterface';
 import RouterInterface from '../Router/RouterInterface';
 
-import { MethodType } from '../Router/Types/MethodType';
+import { MethodType } from '../Router/types/MethodType';
 
 export default class Server implements ServerInterface {
     private env: EnvInterface;
