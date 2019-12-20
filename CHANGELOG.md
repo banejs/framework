@@ -1,3 +1,12 @@
+## [1.0.1](https://github.com/banejs/framework/compare/v1.0.0-beta.6...v1.0.1) (2019-12-20)
+
+
+### Bug Fixes
+
+* **log:** fix log message ([d90e32f](https://github.com/banejs/framework/commit/d90e32f58272de4ebefb2aae81e07443fcd8ac5c))
+
+
+
 # [1.0.0-beta.6](https://github.com/banejs/framework/compare/v1.0.0-beta.5...v1.0.0-beta.6) (2019-12-19)
 
 

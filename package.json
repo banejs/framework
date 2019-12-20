@@ -1,6 +1,6 @@
 {
   "name": "@banejs/framework",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "BaneJS Framework",
   "scripts": {
     "test": "npm run typecheck && npm run tslint && npm run jest",
