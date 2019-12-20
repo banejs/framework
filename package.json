@@ -50,6 +50,7 @@
     "@types/node": "~12.12.21",
     "babel-core": "~7.0.0-bridge.0",
     "babel-jest": "~24.9.0",
+    "husky": "~3.1.0",
     "jest": "~24.9.0",
     "tslint": "~5.20.1",
     "typescript": "~3.7.3"
