@@ -1,8 +1,8 @@
-import ConfigInterface from './ConfigInterface';
-
 import has from 'lodash/has';
 import get from 'lodash/get';
 import set from 'lodash/set';
+
+import ConfigInterface from './ConfigInterface';
 
 /**
  * Manage configuration for an application by adding config objects.

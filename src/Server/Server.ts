@@ -4,8 +4,8 @@ import Koa from 'koa';
 import koaCompose from 'koa-compose';
 import escape from 'lodash/escape';
 
-import LoggerInterface from '@banejs/logger/LoggerInterface';
-import ExceptionInterface from '@banejs/exceptions/ExceptionInterface';
+import LoggerInterface from '@banejs/logger/types/LoggerInterface';
+import ExceptionInterface from '@banejs/exceptions/types/ExceptionInterface';
 
 import normalizeError from '@banejs/exceptions/lib/normalizeError';
 

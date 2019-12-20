@@ -3,8 +3,8 @@ import http, { Server as HttpServer, IncomingMessage } from 'http';
 import Koa from 'koa';
 import escape from 'lodash/escape';
 import Exception from '@banejs/exceptions/Exception';
-import ExceptionInterface from '@banejs/exceptions/ExceptionInterface';
-import LoggerInterface from '@banejs/logger/LoggerInterface';
+import ExceptionInterface from '@banejs/exceptions/types/ExceptionInterface';
+import LoggerInterface from '@banejs/logger/types/LoggerInterface';
 
 import EnvInterface from '../../Env/EnvInterface';
 import ServerInterface from '../ServerInterface';

@@ -1,4 +1,4 @@
-import ContainerInterface from '@banejs/container/ContainerInterface';
+import ContainerInterface from '@banejs/container/types/ContainerInterface';
 
 interface ApplicationInterface {
     /**
