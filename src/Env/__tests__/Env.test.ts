@@ -1,13 +1,15 @@
+import EnvInterface from '../EnvInterface';
+
 import Env from '../Env';
 
 describe('Env', () => {
     describe('environment', () => {
         test('should use unexpected environment', () => {
-            const originalNodeEnv = process.env.NODE_ENV;
+            const originalNodeEnv: string | undefined = process.env.NODE_ENV;
 
             process.env.NODE_ENV = 'unexpected';
 
-            const env = new Env();
+            const env: EnvInterface = new Env();
 
             expect(env.environment).toBe('unexpected');
             expect(env.isDevelopment).toBe(false);
@@ -18,11 +20,11 @@ describe('Env', () => {
         });
 
         test('should use development environment', () => {
-            const originalNodeEnv = process.env.NODE_ENV;
+            const originalNodeEnv: string | undefined = process.env.NODE_ENV;
 
             process.env.NODE_ENV = 'development';
 
-            const env = new Env();
+            const env: EnvInterface = new Env();
 
             expect(env.environment).toBe('development');
             expect(env.isDevelopment).toBe(true);
@@ -33,11 +35,11 @@ describe('Env', () => {
         });
 
         test('should use development environment when NODE_ENV is not provided', () => {
-            const originalNodeEnv = process.env.NODE_ENV;
+            const originalNodeEnv: string | undefined = process.env.NODE_ENV;
 
             delete process.env.NODE_ENV;
 
-            const env = new Env();
+            const env: EnvInterface = new Env();
 
             expect(env.environment).toBe('development');
             expect(env.isDevelopment).toBe(true);
@@ -48,11 +50,11 @@ describe('Env', () => {
         });
 
         test('should use testing environment', () => {
-            const originalNodeEnv = process.env.NODE_ENV;
+            const originalNodeEnv: string | undefined = process.env.NODE_ENV;
 
             process.env.NODE_ENV = 'testing';
 
-            const env = new Env();
+            const env: EnvInterface = new Env();
 
             expect(env.environment).toBe('testing');
             expect(env.isDevelopment).toBe(false);
@@ -63,11 +65,11 @@ describe('Env', () => {
         });
 
         test('should use production environment', () => {
-            const originalNodeEnv = process.env.NODE_ENV;
+            const originalNodeEnv: string | undefined = process.env.NODE_ENV;
 
             process.env.NODE_ENV = 'production';
 
-            const env = new Env();
+            const env: EnvInterface = new Env();
 
             expect(env.environment).toBe('production');
             expect(env.isDevelopment).toBe(false);
@@ -80,17 +82,18 @@ describe('Env', () => {
 
     describe('isServerSide', () => {
         test('should return true', () => {
-            const env = new Env();
+            const env: EnvInterface = new Env();
 
             expect(env.isServerSide).toBe(true);
         });
 
         test('should return false', () => {
-            const originalProcess = process;
+            const originalProcess: NodeJS.Process = process;
 
+            // @ts-ignore
             global.process = undefined;
 
-            const env = new Env();
+            const env: EnvInterface = new Env();
 
             expect(env.isServerSide).toBe(false);
 
@@ -100,17 +103,19 @@ describe('Env', () => {
 
     describe('isClientSide', () => {
         test('should return true', () => {
+            // @ts-ignore
             global.window = { document: {} };
 
-            const env = new Env();
+            const env: EnvInterface = new Env();
 
             expect(env.isClientSide).toBe(true);
 
+            // @ts-ignore
             global.window = undefined;
         });
 
         test('should return false', () => {
-            const env = new Env();
+            const env: EnvInterface = new Env();
 
             expect(env.isClientSide).toBe(false);
         });
