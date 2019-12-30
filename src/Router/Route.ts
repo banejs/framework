@@ -4,11 +4,11 @@ import { pathToRegexp } from 'path-to-regexp';
 import { TokenType } from './types/TokenType';
 import { MethodType } from './types/MethodType';
 import { HandlerType } from './types/HandlerType';
-
-import IRoute from './IRoute';
 import { ParamsType } from './types/ParamsType';
 
-export default class Route implements IRoute {
+import IRoute from './IRoute';
+
+export default class Route<T = Koa.DefaultState, S = Koa.DefaultContext> implements IRoute {
     /**
      * Name of route.
      */
@@ -37,12 +37,12 @@ export default class Route implements IRoute {
     /**
      * Handler to respond to a given request.
      */
-    public handler: HandlerType;
+    public handler: IRoute['handler'];
 
     /**
      * Middleware queue to be executed before the route handler is executed.
      */
-    public middlewareList: Array<Koa.Middleware>;
+    public middlewareList: IRoute['middlewareList'];
 
     /**
      * Construct a new route using path-to-regexp.
@@ -53,7 +53,7 @@ export default class Route implements IRoute {
      *
      * @return {IRoute}
      */
-    public constructor(route: string, method: MethodType | ReadonlyArray<MethodType>, handler: HandlerType) {
+    public constructor(route: string, method: MethodType | ReadonlyArray<MethodType>, handler: IRoute['handler']) {
         // route can register for multiple methods
         const methods: ReadonlyArray<MethodType> = Array.isArray(method) ? method : [method];
         const { pattern, tokens }: { pattern: RegExp; tokens: ReadonlyArray<TokenType> } = this.makeRoutePattern(route);
@@ -93,7 +93,7 @@ export default class Route implements IRoute {
      *
      * @return {IRoute}
      */
-    public as(name: string): IRoute {
+    public as(name: string): this {
         this.name = name;
 
         return this;
@@ -107,7 +107,7 @@ export default class Route implements IRoute {
      *
      * @return {IRoute}
      */
-    public middleware(middleware: Koa.Middleware | ReadonlyArray<Koa.Middleware>): IRoute {
+    public middleware(middleware: IRoute['middlewareList'][0] | ReadonlyArray<IRoute['middlewareList'][0]>): this {
         this.middlewareList = this.middlewareList.concat(middleware);
 
         return this;
