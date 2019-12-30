@@ -1,4 +1,4 @@
-export default interface ConfigInterface {
+export default interface IConfig {
     /**
      * Returns true if the store config can return an entry for the given identifier.
      * Returns false otherwise.

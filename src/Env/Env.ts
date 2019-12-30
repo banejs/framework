@@ -1,6 +1,6 @@
-import EnvInterface from './EnvInterface';
+import IEnv from './IEnv';
 
-export default class Env implements EnvInterface {
+export default class Env implements IEnv {
     /**
      * Current environment.
      *

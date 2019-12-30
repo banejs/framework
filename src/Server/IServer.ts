@@ -2,10 +2,10 @@ import { Server as HttpServer } from 'http';
 
 import LoggerInterface from '@banejs/logger/types/LoggerInterface';
 
-import EnvInterface from '../Env/EnvInterface';
-import RouterInterface from '../Router/RouterInterface';
+import IEnv from '../Env/IEnv';
+import IRouter from '../Router/IRouter';
 
-interface ServerInterface {
+interface IServer {
     /**
      * Returns server application.
      *
@@ -32,10 +32,10 @@ interface ServerInterface {
     listen(host?: string, port?: number, callback?: Function): HttpServer;
 }
 
-interface ServerInterfaceConstructor {
-    new(env: EnvInterface, logger: LoggerInterface, router: RouterInterface): ServerInterface;
+interface IServerConstructor {
+    new(env: IEnv, logger: LoggerInterface, router: IRouter): IServer;
 }
 
-declare const ServerInterface: ServerInterfaceConstructor;
+declare const IServer: IServerConstructor;
 
-export default ServerInterface;
+export default IServer;

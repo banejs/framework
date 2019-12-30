@@ -1,15 +1,15 @@
-import RouteInterface from './RouteInterface';
+import IRoute from './IRoute';
 
 import { MethodType } from './types/MethodType';
 import { HandlerType } from './types/HandlerType';
 
-export default interface RouterInterface {
+export default interface IRouter {
     /**
      * Returns all registered routes.
      *
-     * @return {ReadonlyArray<RouteInterface>}
+     * @return {ReadonlyArray<IRoute>}
      */
-    routes(): ReadonlyArray<RouteInterface>;
+    routes(): ReadonlyArray<IRoute>;
 
     /**
      * A low level method to register route with path, method and handler.
@@ -18,7 +18,7 @@ export default interface RouterInterface {
      * @param {MethodType|ReadonlyArray<MethodType>} method - HTTP method.
      * @param {HandlerType} handler - Handler to respond to a given request.
      */
-    route(route: string, method: MethodType | ReadonlyArray<MethodType>, handler: HandlerType): RouteInterface;
+    route(route: string, method: MethodType | ReadonlyArray<MethodType>, handler: HandlerType): IRoute;
 
     /**
      * Register route with GET method.
@@ -26,7 +26,7 @@ export default interface RouterInterface {
      * @param {string} route - Route expression.
      * @param {HandlerType} handler - Handler to respond to a given request.
      */
-    get(route: string, handler: HandlerType): RouteInterface;
+    get(route: string, handler: HandlerType): IRoute;
 
     /**
      * Register route with POST method.
@@ -34,7 +34,7 @@ export default interface RouterInterface {
      * @param {string} route - Route expression.
      * @param {HandlerType} handler - Handler to respond to a given request.
      */
-    post(route: string, handler: HandlerType): RouteInterface;
+    post(route: string, handler: HandlerType): IRoute;
 
     /**
      * Register route with PUT method.
@@ -42,7 +42,7 @@ export default interface RouterInterface {
      * @param {string} route - Route expression.
      * @param {HandlerType} handler - Handler to respond to a given request.
      */
-    put(route: string, handler: HandlerType): RouteInterface;
+    put(route: string, handler: HandlerType): IRoute;
 
     /**
      * Register route with PATCH method.
@@ -50,7 +50,7 @@ export default interface RouterInterface {
      * @param {string} route - Route expression.
      * @param {HandlerType} handler - Handler to respond to a given request.
      */
-    patch(route: string, handler: HandlerType): RouteInterface;
+    patch(route: string, handler: HandlerType): IRoute;
 
     /**
      * Register route with DELETE method.
@@ -58,7 +58,7 @@ export default interface RouterInterface {
      * @param {string} route - Route expression.
      * @param {HandlerType} handler - Handler to respond to a given request.
      */
-    delete(route: string, handler: HandlerType): RouteInterface;
+    delete(route: string, handler: HandlerType): IRoute;
 
     /**
      * Register route with OPTIONS method.
@@ -66,7 +66,7 @@ export default interface RouterInterface {
      * @param {string} route - Route expression.
      * @param {HandlerType} handler - Handler to respond to a given request.
      */
-    options(route: string, handler: HandlerType): RouteInterface;
+    options(route: string, handler: HandlerType): IRoute;
 
     /**
      * Registers a route with multiple HTTP methods.
@@ -76,7 +76,7 @@ export default interface RouterInterface {
      * @param {HandlerType} handler - Handler to respond to a given request.
      * @param {string} [name] - Route name.
      */
-    match(route: string, methods: ReadonlyArray<MethodType>, handler: HandlerType, name?: string): RouteInterface;
+    match(route: string, methods: ReadonlyArray<MethodType>, handler: HandlerType, name?: string): IRoute;
 
     /**
      * Registers route for all HTTP methods.
@@ -84,7 +84,7 @@ export default interface RouterInterface {
      * @param {string} route - Route expression.
      * @param {HandlerType} handler - Handler to respond to a given request.
      */
-    any(route: string, handler: HandlerType): RouteInterface;
+    any(route: string, handler: HandlerType): IRoute;
 
     /**
      * Resolves route for a given url and HTTP method.
@@ -92,7 +92,7 @@ export default interface RouterInterface {
      * @param {string} path - Path to url.
      * @param {MethodType} method - HTTP method.
      *
-     * @return {RouteInterface}
+     * @return {IRoute}
      */
-    resolve(path: string, method: MethodType): RouteInterface;
+    resolve(path: string, method: MethodType): IRoute;
 }

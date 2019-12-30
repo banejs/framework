@@ -5,7 +5,7 @@ import { MethodType } from './types/MethodType';
 import { HandlerType } from './types/HandlerType';
 import { ParamsType } from './types/ParamsType';
 
-interface RouteInterface {
+interface IRoute {
     /**
      * Name of route.
      */
@@ -46,9 +46,9 @@ interface RouteInterface {
      *
      * @param {string} name - Name of route.
      *
-     * @return {RouteInterface}
+     * @return {IRoute}
      */
-    as(name: string): RouteInterface;
+    as(name: string): IRoute;
 
     /**
      * Add middleware to the middleware queue to be executed
@@ -56,9 +56,9 @@ interface RouteInterface {
      *
      * @param {Application.Middleware|ReadonlyArray<Application.Middleware>} middleware - Middleware function.
      *
-     * @return {RouteInterface}
+     * @return {IRoute}
      */
-    middleware(middleware: Koa.Middleware | ReadonlyArray<Koa.Middleware>): RouteInterface;
+    middleware(middleware: Koa.Middleware | ReadonlyArray<Koa.Middleware>): IRoute;
 
     /**
      * Get route params assigned to route tokens.
@@ -70,7 +70,7 @@ interface RouteInterface {
     getRouteParams(path: string): ParamsType;
 }
 
-interface RouteInterfaceConstructor {
+interface IRouteConstructor {
     /**
      * Construct a new route.
      *
@@ -78,11 +78,11 @@ interface RouteInterfaceConstructor {
      * @param {MethodType|ReadonlyArray<MethodType>} method - HTTP method.
      * @param {HandlerType} handler - Handler to respond to a given request.
      *
-     * @return {RouteInterface}
+     * @return {IRoute}
      */
-    new(route: string, method: MethodType | ReadonlyArray<MethodType>, handler: HandlerType): RouteInterface;
+    new(route: string, method: MethodType | ReadonlyArray<MethodType>, handler: HandlerType): IRoute;
 }
 
-declare const RouteInterface: RouteInterfaceConstructor;
+declare const IRoute: IRouteConstructor;
 
-export default RouteInterface;
+export default IRoute;

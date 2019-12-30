@@ -1,11 +1,11 @@
 import ContainerInterface from '@banejs/container/types/ContainerInterface';
 
-import ApplicationInterface from './ApplicationInterface';
+import IApplication from './IApplication';
 
 /**
  * @author Anton Drobot
  */
-export default class Application implements ApplicationInterface {
+export default class Application implements IApplication {
     /**
      * Inversion of Control Container.
      *

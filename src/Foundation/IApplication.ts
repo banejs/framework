@@ -1,6 +1,6 @@
 import ContainerInterface from '@banejs/container/types/ContainerInterface';
 
-interface ApplicationInterface {
+interface IApplication {
     /**
      * Inversion of Control Container.
      *
@@ -16,15 +16,15 @@ interface ApplicationInterface {
     handle(callback: (container: ContainerInterface) => void): void;
 }
 
-interface ApplicationInterfaceConstructor {
+interface IApplicationConstructor {
     /**
      * Create a new application instance.
      *
      * @param {ContainerInterface} container - Inversion of Control Container.
      */
-    new(container: ContainerInterface): ApplicationInterface;
+    new(container: ContainerInterface): IApplication;
 }
 
-declare const ApplicationInterface: ApplicationInterfaceConstructor;
+declare const IApplication: IApplicationConstructor;
 
-export default ApplicationInterface;
+export default IApplication;

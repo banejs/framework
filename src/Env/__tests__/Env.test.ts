@@ -1,4 +1,4 @@
-import EnvInterface from '../EnvInterface';
+import IEnv from '../IEnv';
 
 import Env from '../Env';
 
@@ -9,7 +9,7 @@ describe('Env', () => {
 
             process.env.NODE_ENV = 'unexpected';
 
-            const env: EnvInterface = new Env();
+            const env: IEnv = new Env();
 
             expect(env.environment).toBe('unexpected');
             expect(env.isDevelopment).toBe(false);
@@ -24,7 +24,7 @@ describe('Env', () => {
 
             process.env.NODE_ENV = 'development';
 
-            const env: EnvInterface = new Env();
+            const env: IEnv = new Env();
 
             expect(env.environment).toBe('development');
             expect(env.isDevelopment).toBe(true);
@@ -39,7 +39,7 @@ describe('Env', () => {
 
             delete process.env.NODE_ENV;
 
-            const env: EnvInterface = new Env();
+            const env: IEnv = new Env();
 
             expect(env.environment).toBe('development');
             expect(env.isDevelopment).toBe(true);
@@ -54,7 +54,7 @@ describe('Env', () => {
 
             process.env.NODE_ENV = 'testing';
 
-            const env: EnvInterface = new Env();
+            const env: IEnv = new Env();
 
             expect(env.environment).toBe('testing');
             expect(env.isDevelopment).toBe(false);
@@ -69,7 +69,7 @@ describe('Env', () => {
 
             process.env.NODE_ENV = 'production';
 
-            const env: EnvInterface = new Env();
+            const env: IEnv = new Env();
 
             expect(env.environment).toBe('production');
             expect(env.isDevelopment).toBe(false);
@@ -82,7 +82,7 @@ describe('Env', () => {
 
     describe('isServerSide', () => {
         test('should return true', () => {
-            const env: EnvInterface = new Env();
+            const env: IEnv = new Env();
 
             expect(env.isServerSide).toBe(true);
         });
@@ -93,7 +93,7 @@ describe('Env', () => {
             // @ts-ignore
             global.process = undefined;
 
-            const env: EnvInterface = new Env();
+            const env: IEnv = new Env();
 
             expect(env.isServerSide).toBe(false);
 
@@ -106,7 +106,7 @@ describe('Env', () => {
             // @ts-ignore
             global.window = { document: {} };
 
-            const env: EnvInterface = new Env();
+            const env: IEnv = new Env();
 
             expect(env.isClientSide).toBe(true);
 
@@ -115,7 +115,7 @@ describe('Env', () => {
         });
 
         test('should return false', () => {
-            const env: EnvInterface = new Env();
+            const env: IEnv = new Env();
 
             expect(env.isClientSide).toBe(false);
         });

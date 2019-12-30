@@ -1,7 +1,7 @@
 import Container from '@banejs/container/Container';
 import ContainerInterface from '@banejs/container/types/ContainerInterface';
 
-import ApplicationInterface from '../ApplicationInterface';
+import IApplication from '../IApplication';
 
 import Application from '../Application';
 
@@ -10,7 +10,7 @@ describe('Application', () => {
         test('should call callback with container instance', () => {
             const callback: jest.Mock = jest.fn();
             const container: ContainerInterface = new Container();
-            const application: ApplicationInterface = new Application(container);
+            const application: IApplication = new Application(container);
 
             application.handle(callback);
 

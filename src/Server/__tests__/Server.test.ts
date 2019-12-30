@@ -6,17 +6,17 @@ import Exception from '@banejs/exceptions/Exception';
 import ExceptionInterface from '@banejs/exceptions/types/ExceptionInterface';
 import LoggerInterface from '@banejs/logger/types/LoggerInterface';
 
-import EnvInterface from '../../Env/EnvInterface';
-import ServerInterface from '../ServerInterface';
-import RouterInterface from '../../Router/RouterInterface';
+import IEnv from '../../Env/IEnv';
+import IServer from '../IServer';
+import IRouter from '../../Router/IRouter';
 
 import Server from '../Server';
 import Router from '../../Router/Router';
 
 describe('Server', () => {
-    const env: EnvInterface = {
+    const env: IEnv = {
         isDevelopment: false
-    } as EnvInterface;
+    } as IEnv;
 
     const logger: LoggerInterface = {
         debug: jest.fn() as LoggerInterface['debug'],
@@ -25,8 +25,8 @@ describe('Server', () => {
 
     describe('#app()', () => {
         test('should return Koa application instance', () => {
-            const router: RouterInterface = new Router();
-            const server: ServerInterface = new Server(env, logger, router);
+            const router: IRouter = new Router();
+            const server: IServer = new Server(env, logger, router);
 
             expect(server.app()).toBeInstanceOf(Koa);
         });
@@ -34,11 +34,11 @@ describe('Server', () => {
 
     describe('#listen(host, port)', () => {
         test('should return 200', (done: jest.DoneCallback) => {
-            const router: RouterInterface = new Router();
+            const router: IRouter = new Router();
 
             router.get('/', () => 'Hello, world!');
 
-            const server: ServerInterface = new Server(env, logger, router);
+            const server: IServer = new Server(env, logger, router);
             const httpServer: HttpServer = server.listen('localhost', 3000, () => {
                 http
                     .get('http://localhost:3000', (res: IncomingMessage) => {
@@ -59,11 +59,11 @@ describe('Server', () => {
         });
 
         test('should return 404', (done: jest.DoneCallback) => {
-            const router: RouterInterface = new Router();
+            const router: IRouter = new Router();
 
             router.get('/', () => 'Hello, world!');
 
-            const server: ServerInterface = new Server(env, logger, router);
+            const server: IServer = new Server(env, logger, router);
             const httpServer: HttpServer = server.listen('localhost', 3000, () => {
                 http
                     .get('http://localhost:3000/404', (res: IncomingMessage) => {
@@ -84,14 +84,14 @@ describe('Server', () => {
         });
 
         test('should return 500', (done: jest.DoneCallback) => {
-            const router: RouterInterface = new Router();
+            const router: IRouter = new Router();
             const error: Error = new Error('some error');
 
             router.get('/', () => {
                 throw error;
             });
 
-            const server: ServerInterface = new Server(env, logger, router);
+            const server: IServer = new Server(env, logger, router);
             const httpServer: HttpServer = server.listen('localhost', 3000, () => {
                 http
                     .get('http://localhost:3000/', (res: IncomingMessage) => {
@@ -112,11 +112,11 @@ describe('Server', () => {
         });
 
         test('should return "Hello, world!"', (done: jest.DoneCallback) => {
-            const router: RouterInterface = new Router();
+            const router: IRouter = new Router();
 
             router.get('/', () => 'Hello, world!');
 
-            const server: ServerInterface = new Server(env, logger, router);
+            const server: IServer = new Server(env, logger, router);
             const httpServer: HttpServer = server.listen('localhost', 3000, () => {
                 http
                     .get('http://localhost:3000', (res: IncomingMessage) => {
@@ -145,7 +145,7 @@ describe('Server', () => {
         });
 
         test('should register route middleware', (done: jest.DoneCallback) => {
-            const router: RouterInterface = new Router();
+            const router: IRouter = new Router();
 
             router
                 .get('/', () => 'Hello, world!')
@@ -154,7 +154,7 @@ describe('Server', () => {
                     ctx.set('x-middleware-message', 'some message');
                 });
 
-            const server: ServerInterface = new Server(env, logger, router);
+            const server: IServer = new Server(env, logger, router);
 
             const httpServer: HttpServer = server.listen('localhost', 3000, () => {
                 http
@@ -176,7 +176,7 @@ describe('Server', () => {
         });
 
         test('should register route array of middleware', (done: jest.DoneCallback) => {
-            const router: RouterInterface = new Router();
+            const router: IRouter = new Router();
 
             router
                 .get('/', () => 'Hello, world!')
@@ -191,7 +191,7 @@ describe('Server', () => {
                     }
                 ]);
 
-            const server: ServerInterface = new Server(env, logger, router);
+            const server: IServer = new Server(env, logger, router);
 
             const httpServer: HttpServer = server.listen('localhost', 3000, () => {
                 http
@@ -214,14 +214,14 @@ describe('Server', () => {
         });
 
         test('should return "Internal Server Error"', (done: jest.DoneCallback) => {
-            const router: RouterInterface = new Router();
+            const router: IRouter = new Router();
             const error: Error = new Error('some error');
 
             router.get('/', () => {
                 throw error;
             });
 
-            const server: ServerInterface = new Server(env, logger, router);
+            const server: IServer = new Server(env, logger, router);
             const httpServer: HttpServer = server.listen('localhost', 3000, () => {
                 http
                     .get('http://localhost:3000', (res: IncomingMessage) => {
@@ -250,15 +250,15 @@ describe('Server', () => {
         });
 
         test('should return error description for development environment', (done: jest.DoneCallback) => {
-            const router: RouterInterface = new Router();
+            const router: IRouter = new Router();
             const error: ExceptionInterface = new Exception('some error');
-            const envDev: EnvInterface = { isDevelopment: true } as EnvInterface;
+            const envDev: IEnv = { isDevelopment: true } as IEnv;
 
             router.get('/', () => {
                 throw error;
             });
 
-            const server: ServerInterface = new Server(envDev, logger, router);
+            const server: IServer = new Server(envDev, logger, router);
             const httpServer: HttpServer = server.listen('localhost', 3000, () => {
                 http
                     .get('http://localhost:3000', (res: IncomingMessage) => {
@@ -289,11 +289,11 @@ describe('Server', () => {
 
     describe('#middleware(middleware)', () => {
         test('should register middleware', (done: jest.DoneCallback) => {
-            const router: RouterInterface = new Router();
+            const router: IRouter = new Router();
 
             router.get('/', () => 'Hello, world!');
 
-            const server: ServerInterface = new Server(env, logger, router);
+            const server: IServer = new Server(env, logger, router);
 
             server.middleware(async (ctx: Koa.Context, next: Koa.Next): Promise<void> => {
                 await next();
@@ -320,11 +320,11 @@ describe('Server', () => {
         });
 
         test('should register array of middleware', (done: jest.DoneCallback) => {
-            const router: RouterInterface = new Router();
+            const router: IRouter = new Router();
 
             router.get('/', () => 'Hello, world!');
 
-            const server: ServerInterface = new Server(env, logger, router);
+            const server: IServer = new Server(env, logger, router);
 
             server.middleware([
                 async (ctx: Koa.Context, next: Koa.Next): Promise<void> => {

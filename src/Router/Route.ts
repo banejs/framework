@@ -5,10 +5,10 @@ import { TokenType } from './types/TokenType';
 import { MethodType } from './types/MethodType';
 import { HandlerType } from './types/HandlerType';
 
-import RouteInterface from './RouteInterface';
+import IRoute from './IRoute';
 import { ParamsType } from './types/ParamsType';
 
-export default class Route implements RouteInterface {
+export default class Route implements IRoute {
     /**
      * Name of route.
      */
@@ -51,7 +51,7 @@ export default class Route implements RouteInterface {
      * @param {MethodType|ReadonlyArray<MethodType>} method - HTTP method.
      * @param {HandlerType} handler - Handler to respond to a given request.
      *
-     * @return {RouteInterface}
+     * @return {IRoute}
      */
     public constructor(route: string, method: MethodType | ReadonlyArray<MethodType>, handler: HandlerType) {
         // route can register for multiple methods
@@ -91,9 +91,9 @@ export default class Route implements RouteInterface {
      *
      * @param {string} name - Name of route.
      *
-     * @return {RouteInterface}
+     * @return {IRoute}
      */
-    public as(name: string): RouteInterface {
+    public as(name: string): IRoute {
         this.name = name;
 
         return this;
@@ -105,9 +105,9 @@ export default class Route implements RouteInterface {
      *
      * @param {Application.Middleware|ReadonlyArray<Application.Middleware>} middleware - Middleware function.
      *
-     * @return {RouteInterface}
+     * @return {IRoute}
      */
-    public middleware(middleware: Koa.Middleware | ReadonlyArray<Koa.Middleware>): RouteInterface {
+    public middleware(middleware: Koa.Middleware | ReadonlyArray<Koa.Middleware>): IRoute {
         this.middlewareList = this.middlewareList.concat(middleware);
 
         return this;

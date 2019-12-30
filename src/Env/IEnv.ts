@@ -1,4 +1,4 @@
-export default interface EnvInterface {
+export default interface IEnv {
     /**
      * Current environment.
      *

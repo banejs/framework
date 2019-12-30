@@ -2,14 +2,14 @@ import has from 'lodash/has';
 import get from 'lodash/get';
 import set from 'lodash/set';
 
-import ConfigInterface from './ConfigInterface';
+import IConfig from './IConfig';
 
 /**
  * Manage configuration for an application by adding config objects.
  *
  * @author Anton Drobot
  */
-export default class Config implements ConfigInterface {
+export default class Config implements IConfig {
     /**
      * Config store.
      *

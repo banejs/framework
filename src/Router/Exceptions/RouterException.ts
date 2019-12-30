@@ -1,11 +1,11 @@
 import Exception from '@banejs/exceptions/Exception';
 
-import RouterExceptionInterface from './RouterExceptionInterface';
+import IRouterException from './IRouterException';
 
 /**
  * Base interface representing a generic exception in a router.
  */
-export default class RouterException extends Exception implements RouterExceptionInterface {
+export default class RouterException extends Exception implements IRouterException {
     public name: string = 'RouterException';
 
     public constructor(message?: string, code: string = 'E_ROUTER_EXCEPTION', status: number = 500) {

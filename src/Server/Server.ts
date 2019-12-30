@@ -7,19 +7,19 @@ import escape from 'lodash/escape';
 import LoggerInterface from '@banejs/logger/types/LoggerInterface';
 import ExceptionInterface from '@banejs/exceptions/types/ExceptionInterface';
 
-import normalizeError from '@banejs/exceptions/lib/normalizeError';
-
-import ServerInterface from './ServerInterface';
-import EnvInterface from '../Env/EnvInterface';
-import RouteInterface from '../Router/RouteInterface';
-import RouterInterface from '../Router/RouterInterface';
+import IServer from './IServer';
+import IEnv from '../Env/IEnv';
+import IRoute from '../Router/IRoute';
+import IRouter from '../Router/IRouter';
 
 import { MethodType } from '../Router/types/MethodType';
 
-export default class Server implements ServerInterface {
-    private env: EnvInterface;
+import normalizeError from '@banejs/exceptions/lib/normalizeError';
+
+export default class Server implements IServer {
+    private env: IEnv;
     private logger: LoggerInterface;
-    private router: RouterInterface;
+    private router: IRouter;
     private appInstance: Koa = new Koa();
 
     /**
@@ -27,7 +27,7 @@ export default class Server implements ServerInterface {
      * @param logger - Dependency.
      * @param router - Dependency.
      */
-    public constructor(env: EnvInterface, logger: LoggerInterface, router: RouterInterface) {
+    public constructor(env: IEnv, logger: LoggerInterface, router: IRouter) {
         this.env = env;
         this.logger = logger;
         this.router = router;
@@ -46,7 +46,7 @@ export default class Server implements ServerInterface {
     private async handle(context: Koa.Context, next: () => Promise<any>): Promise<void> {
         try {
             const method: MethodType = context.method as MethodType;
-            const route: RouteInterface = this.router.resolve(context.url, method);
+            const route: IRoute = this.router.resolve(context.url, method);
 
             /**
              * Assign route path parameters to context state.
