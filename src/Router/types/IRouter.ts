@@ -1,3 +1,5 @@
+import Koa from 'koa';
+
 import IRoute from './IRoute';
 
 import { MethodType } from './MethodType';
@@ -9,7 +11,7 @@ export default interface IRouter {
      *
      * @return {ReadonlyArray<IRoute>}
      */
-    routes(): ReadonlyArray<IRoute>;
+    routes(): ReadonlyArray<IRoute<any, any>>;
 
     /**
      * A low level method to register route with path, method and handler.
@@ -18,7 +20,7 @@ export default interface IRouter {
      * @param {MethodType|ReadonlyArray<MethodType>} method - HTTP method.
      * @param {HandlerType} handler - Handler to respond to a given request.
      */
-    route(route: string, method: MethodType | ReadonlyArray<MethodType>, handler: HandlerType): IRoute;
+    route<T = Koa.DefaultState, S = Koa.DefaultContext>(route: string, method: MethodType | ReadonlyArray<MethodType>, handler: HandlerType<T, S>): IRoute<T, S>;
 
     /**
      * Register route with GET method.
@@ -26,7 +28,7 @@ export default interface IRouter {
      * @param {string} route - Route expression.
      * @param {HandlerType} handler - Handler to respond to a given request.
      */
-    get(route: string, handler: HandlerType): IRoute;
+    get<T = Koa.DefaultState, S = Koa.DefaultContext>(route: string, handler: HandlerType<T, S>): IRoute<T, S>;
 
     /**
      * Register route with POST method.
@@ -34,7 +36,7 @@ export default interface IRouter {
      * @param {string} route - Route expression.
      * @param {HandlerType} handler - Handler to respond to a given request.
      */
-    post(route: string, handler: HandlerType): IRoute;
+    post<T = Koa.DefaultState, S = Koa.DefaultContext>(route: string, handler: HandlerType<T, S>): IRoute<T, S>;
 
     /**
      * Register route with PUT method.
@@ -42,7 +44,7 @@ export default interface IRouter {
      * @param {string} route - Route expression.
      * @param {HandlerType} handler - Handler to respond to a given request.
      */
-    put(route: string, handler: HandlerType): IRoute;
+    put<T = Koa.DefaultState, S = Koa.DefaultContext>(route: string, handler: HandlerType<T, S>): IRoute<T, S>;
 
     /**
      * Register route with PATCH method.
@@ -50,7 +52,7 @@ export default interface IRouter {
      * @param {string} route - Route expression.
      * @param {HandlerType} handler - Handler to respond to a given request.
      */
-    patch(route: string, handler: HandlerType): IRoute;
+    patch<T = Koa.DefaultState, S = Koa.DefaultContext>(route: string, handler: HandlerType<T, S>): IRoute<T, S>;
 
     /**
      * Register route with DELETE method.
@@ -58,7 +60,7 @@ export default interface IRouter {
      * @param {string} route - Route expression.
      * @param {HandlerType} handler - Handler to respond to a given request.
      */
-    delete(route: string, handler: HandlerType): IRoute;
+    delete<T = Koa.DefaultState, S = Koa.DefaultContext>(route: string, handler: HandlerType<T, S>): IRoute<T, S>;
 
     /**
      * Register route with OPTIONS method.
@@ -66,7 +68,7 @@ export default interface IRouter {
      * @param {string} route - Route expression.
      * @param {HandlerType} handler - Handler to respond to a given request.
      */
-    options(route: string, handler: HandlerType): IRoute;
+    options<T = Koa.DefaultState, S = Koa.DefaultContext>(route: string, handler: HandlerType<T, S>): IRoute<T, S>;
 
     /**
      * Registers a route with multiple HTTP methods.
@@ -76,7 +78,7 @@ export default interface IRouter {
      * @param {HandlerType} handler - Handler to respond to a given request.
      * @param {string} [name] - Route name.
      */
-    match(route: string, methods: ReadonlyArray<MethodType>, handler: HandlerType, name?: string): IRoute;
+    match<T = Koa.DefaultState, S = Koa.DefaultContext>(route: string, methods: ReadonlyArray<MethodType>, handler: HandlerType<T, S>, name?: string): IRoute<T, S>;
 
     /**
      * Registers route for all HTTP methods.
@@ -84,7 +86,7 @@ export default interface IRouter {
      * @param {string} route - Route expression.
      * @param {HandlerType} handler - Handler to respond to a given request.
      */
-    any(route: string, handler: HandlerType): IRoute;
+    any<T = Koa.DefaultState, S = Koa.DefaultContext>(route: string, handler: HandlerType<T, S>): IRoute<T, S>;
 
     /**
      * Resolves route for a given url and HTTP method.
@@ -94,5 +96,5 @@ export default interface IRouter {
      *
      * @return {IRoute}
      */
-    resolve(path: string, method: MethodType): IRoute;
+    resolve<T = Koa.DefaultState, S = Koa.DefaultContext>(path: string, method: MethodType): IRoute<T, S>;
 }

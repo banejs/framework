@@ -58,7 +58,7 @@ interface IRoute<T = Koa.DefaultState, S = Koa.DefaultContext> {
      *
      * @return {IRoute}
      */
-    middleware(middleware: Koa.Middleware | ReadonlyArray<Koa.Middleware>): this;
+    middleware(middleware: Koa.Middleware<T, S> | ReadonlyArray<Koa.Middleware<T, S>>): this;
 
     /**
      * Get route params assigned to route tokens.

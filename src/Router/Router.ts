@@ -1,3 +1,5 @@
+import Koa from 'koa';
+
 import IRouter from './types/IRouter';
 import IRoute from './types/IRoute';
 import { MethodType } from './types/MethodType';
@@ -15,14 +17,14 @@ export default class Router implements IRouter {
      *
      * @private
      */
-    private routesCollection: Array<IRoute> = [];
+    private routesCollection: Array<IRoute<any, any>> = [];
 
     /**
      * Returns all registered routes.
      *
      * @return {ReadonlyArray<IRoute>}
      */
-    public routes(): ReadonlyArray<IRoute> {
+    public routes(): ReadonlyArray<IRoute<any, any>> {
         return this.routesCollection;
     }
 
@@ -40,8 +42,9 @@ export default class Router implements IRouter {
      *
      * });
      */
-    public route(route: string, method: MethodType | ReadonlyArray<MethodType>, handler: HandlerType): IRoute {
-        const routeInstance: IRoute = new Route(route, method, handler);
+    public route<T = Koa.DefaultState, S = Koa.DefaultContext>(route: string, method: MethodType | ReadonlyArray<MethodType>, handler: HandlerType<T, S>): IRoute<T, S> {
+        // @ts -ignore ignore incompatible of handler type
+        const routeInstance: IRoute<T, S> = new Route<T, S>(route, method, handler);
 
         this.routesCollection.push(routeInstance);
 
@@ -61,7 +64,7 @@ export default class Router implements IRouter {
      *
      * });
      */
-    public get(route: string, handler: HandlerType): IRoute {
+    public get<T = Koa.DefaultState, S = Koa.DefaultContext>(route: string, handler: HandlerType<T, S>): IRoute<T, S> {
         return this.route(route, ['GET', 'HEAD'], handler);
     }
 
@@ -78,7 +81,7 @@ export default class Router implements IRouter {
      *
      * });
      */
-    public post(route: string, handler: HandlerType): IRoute {
+    public post<T = Koa.DefaultState, S = Koa.DefaultContext>(route: string, handler: HandlerType<T, S>): IRoute<T, S> {
         return this.route(route, 'POST', handler);
     }
 
@@ -95,7 +98,7 @@ export default class Router implements IRouter {
      *
      * });
      */
-    public put(route: string, handler: HandlerType): IRoute {
+    public put<T = Koa.DefaultState, S = Koa.DefaultContext>(route: string, handler: HandlerType<T, S>): IRoute<T, S> {
         return this.route(route, 'PUT', handler);
     }
 
@@ -112,7 +115,7 @@ export default class Router implements IRouter {
      *
      * });
      */
-    public patch(route: string, handler: HandlerType): IRoute {
+    public patch<T = Koa.DefaultState, S = Koa.DefaultContext>(route: string, handler: HandlerType<T, S>): IRoute<T, S> {
         return this.route(route, 'PATCH', handler);
     }
 
@@ -129,7 +132,7 @@ export default class Router implements IRouter {
      *
      * });
      */
-    public delete(route: string, handler: HandlerType): IRoute {
+    public delete<T = Koa.DefaultState, S = Koa.DefaultContext>(route: string, handler: HandlerType<T, S>): IRoute<T, S> {
         return this.route(route, 'DELETE', handler);
     }
 
@@ -146,7 +149,7 @@ export default class Router implements IRouter {
      *
      * });
      */
-    public options(route: string, handler: HandlerType): IRoute {
+    public options<T = Koa.DefaultState, S = Koa.DefaultContext>(route: string, handler: HandlerType<T, S>): IRoute<T, S> {
         return this.route(route, 'OPTIONS', handler);
     }
 
@@ -164,7 +167,7 @@ export default class Router implements IRouter {
      *
      * });
      */
-    public match(route: string, methods: ReadonlyArray<MethodType>, handler: HandlerType): IRoute {
+    public match<T = Koa.DefaultState, S = Koa.DefaultContext>(route: string, methods: ReadonlyArray<MethodType>, handler: HandlerType<T, S>): IRoute<T, S> {
         return this.route(route, methods, handler);
     }
 
@@ -181,7 +184,7 @@ export default class Router implements IRouter {
      *
      * });
      */
-    public any(route: string, handler: HandlerType): IRoute {
+    public any<T = Koa.DefaultState, S = Koa.DefaultContext>(route: string, handler: HandlerType<T, S>): IRoute<T, S> {
         const methods: ReadonlyArray<MethodType> = ['GET', 'HEAD', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'];
 
         return this.route(route, methods, handler);
@@ -190,7 +193,7 @@ export default class Router implements IRouter {
     /**
      * Resolves route for a given URL and HTTP method.
      *
-     * @throws {NotFoundExceptionInterface} - No entry was found for path.
+     * @throws {INotFoundException} - No entry was found for path.
      *
      * @param {string} path - URL or path of URL.
      * @param {string} method - HTTP method.
@@ -200,8 +203,8 @@ export default class Router implements IRouter {
      * @example
      * Route.resolve('/user/1', 'GET');
      */
-    public resolve(path: string, method: MethodType): IRoute {
-        const route: IRoute | undefined = this.routesCollection.find((r: IRoute): boolean => (
+    public resolve<T = Koa.DefaultState, S = Koa.DefaultContext>(path: string, method: MethodType): IRoute<T, S> {
+        const route: IRoute<T, S> | undefined = this.routesCollection.find((r: IRoute<T, S>): boolean => (
             r.pattern.test(path) && r.methods.includes(method)
         ));
 

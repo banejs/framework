@@ -175,6 +175,49 @@ describe('Server', () => {
             });
         });
 
+        test('should register route middleware and return value from context', (done: jest.DoneCallback) => {
+            const router: IRouter = new Router();
+
+            type ContextState = {
+                foo: string;
+            };
+
+            router
+                .get('/', (ctx: Koa.ParameterizedContext<ContextState>) => `Hello, ${ctx.state.foo}!`)
+                .middleware(async (ctx: Koa.ParameterizedContext<ContextState>, next: Koa.Next): Promise<void> => {
+                    ctx.state.foo = 'bar';
+                    await next();
+                });
+
+            const server: IServer = new Server(env, logger, router);
+
+            const httpServer: HttpServer = server.listen('localhost', 3000, () => {
+                http
+                    .get('http://localhost:3000', (res: IncomingMessage) => {
+                        let data: string = '';
+
+                        res.on('data', (chunk: string) => {
+                            data += chunk;
+                        });
+
+                        res.on('end', () => {
+                            expect(data).toBe('Hello, bar!');
+                            httpServer.close();
+                            done();
+                        });
+                    })
+                    .on('error', (err: Error) => {
+                        httpServer.close();
+                        done.fail(err);
+                    });
+            });
+
+            httpServer.on('error', (err: Error) => {
+                httpServer.close();
+                done.fail(err);
+            });
+        });
+
         test('should register route array of middleware', (done: jest.DoneCallback) => {
             const router: IRouter = new Router();
 

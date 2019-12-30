@@ -7,7 +7,7 @@ import { MethodType } from './types/MethodType';
 import { HandlerType } from './types/HandlerType';
 import { ParamsType } from './types/ParamsType';
 
-export default class Route<T = Koa.DefaultState, S = Koa.DefaultContext> implements IRoute {
+export default class Route<T = Koa.DefaultState, S = Koa.DefaultContext> implements IRoute<T, S> {
     /**
      * Name of route.
      */
@@ -36,12 +36,12 @@ export default class Route<T = Koa.DefaultState, S = Koa.DefaultContext> impleme
     /**
      * Handler to respond to a given request.
      */
-    public handler: IRoute['handler'];
+    public handler: HandlerType<T, S>;
 
     /**
      * Middleware queue to be executed before the route handler is executed.
      */
-    public middlewareList: IRoute['middlewareList'];
+    public middlewareList: Array<Koa.Middleware<T, S>>;
 
     /**
      * Construct a new route using path-to-regexp.
@@ -52,7 +52,7 @@ export default class Route<T = Koa.DefaultState, S = Koa.DefaultContext> impleme
      *
      * @return {IRoute}
      */
-    public constructor(route: string, method: MethodType | ReadonlyArray<MethodType>, handler: IRoute['handler']) {
+    public constructor(route: string, method: MethodType | ReadonlyArray<MethodType>, handler: HandlerType<T, S>) {
         // route can register for multiple methods
         const methods: ReadonlyArray<MethodType> = Array.isArray(method) ? method : [method];
         const { pattern, tokens }: { pattern: RegExp; tokens: ReadonlyArray<TokenType> } = this.makeRoutePattern(route);
@@ -106,7 +106,7 @@ export default class Route<T = Koa.DefaultState, S = Koa.DefaultContext> impleme
      *
      * @return {IRoute}
      */
-    public middleware(middleware: IRoute['middlewareList'][0] | ReadonlyArray<IRoute['middlewareList'][0]>): this {
+    public middleware(middleware: Koa.Middleware<T, S> | ReadonlyArray<Koa.Middleware<T, S>>): this {
         this.middlewareList = this.middlewareList.concat(middleware);
 
         return this;
