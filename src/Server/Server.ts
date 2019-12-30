@@ -36,14 +36,14 @@ export default class Server implements IServer {
     /**
      * Request handler to respond to a given HTTP request.
      *
-     * @param {Koa.Context} context
-     * @param {() => Promise<any>} next
+     * @param {Koa.ParameterizedContext} context
+     * @param {Koa.Next} next
      *
      * @return {Promise<void>}
      *
      * @private
      */
-    private async handle(context: Koa.Context, next: () => Promise<any>): Promise<void> {
+    private async handle(context: Koa.ParameterizedContext, next: Koa.Next): Promise<void> {
         try {
             const method: MethodType = context.method as MethodType;
             const route: IRoute = this.router.resolve(context.url, method);

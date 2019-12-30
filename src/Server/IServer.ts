@@ -1,5 +1,6 @@
 import { Server as HttpServer } from 'http';
 
+import Koa from 'koa';
 import ILogger from '@banejs/logger/types/ILogger';
 
 import IEnv from '../Env/IEnv';
@@ -16,9 +17,9 @@ interface IServer {
     /**
      * Registering middleware to run during every HTTP request to your application.
      *
-     * @param {Function|Array<Function>} middleware
+     * @param {Koa.Middleware|Array<Koa.Middleware>} middleware
      */
-    middleware(middleware: Function | Array<Function>): void;
+    middleware(middleware: Koa.Middleware | Array<Koa.Middleware>): void;
 
     /**
      * Starting a server on a given port and host.
