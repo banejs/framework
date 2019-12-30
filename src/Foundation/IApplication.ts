@@ -1,28 +1,28 @@
-import ContainerInterface from '@banejs/container/types/ContainerInterface';
+import IContainer from '@banejs/container/types/IContainer';
 
 interface IApplication {
     /**
      * Inversion of Control Container.
      *
-     * @type {ContainerInterface}
+     * @type {IContainer}
      */
-    container: ContainerInterface;
+    container: IContainer;
 
     /**
      * Handles a request.
      *
-     * @param {(container: ContainerInterface) => void} callback
+     * @param {(container: IContainer) => void} callback
      */
-    handle(callback: (container: ContainerInterface) => void): void;
+    handle(callback: (container: IContainer) => void): void;
 }
 
 interface IApplicationConstructor {
     /**
      * Create a new application instance.
      *
-     * @param {ContainerInterface} container - Inversion of Control Container.
+     * @param {IContainer} container - Inversion of Control Container.
      */
-    new(container: ContainerInterface): IApplication;
+    new(container: IContainer): IApplication;
 }
 
 declare const IApplication: IApplicationConstructor;

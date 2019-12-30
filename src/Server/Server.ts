@@ -4,8 +4,8 @@ import Koa from 'koa';
 import koaCompose from 'koa-compose';
 import escape from 'lodash/escape';
 
-import LoggerInterface from '@banejs/logger/types/LoggerInterface';
-import ExceptionInterface from '@banejs/exceptions/types/ExceptionInterface';
+import ILogger from '@banejs/logger/types/ILogger';
+import IException from '@banejs/exceptions/types/IException';
 
 import IServer from './IServer';
 import IEnv from '../Env/IEnv';
@@ -18,7 +18,7 @@ import normalizeError from '@banejs/exceptions/lib/normalizeError';
 
 export default class Server implements IServer {
     private env: IEnv;
-    private logger: LoggerInterface;
+    private logger: ILogger;
     private router: IRouter;
     private appInstance: Koa = new Koa();
 
@@ -27,7 +27,7 @@ export default class Server implements IServer {
      * @param logger - Dependency.
      * @param router - Dependency.
      */
-    public constructor(env: IEnv, logger: LoggerInterface, router: IRouter) {
+    public constructor(env: IEnv, logger: ILogger, router: IRouter) {
         this.env = env;
         this.logger = logger;
         this.router = router;
@@ -62,7 +62,7 @@ export default class Server implements IServer {
 
             context.body = await route.handler(context);
         } catch (error) {
-            const normalizedError: ExceptionInterface = normalizeError(error);
+            const normalizedError: IException = normalizeError(error);
 
             context.status = normalizedError.status;
 

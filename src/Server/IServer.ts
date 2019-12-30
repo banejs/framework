@@ -1,6 +1,6 @@
 import { Server as HttpServer } from 'http';
 
-import LoggerInterface from '@banejs/logger/types/LoggerInterface';
+import ILogger from '@banejs/logger/types/ILogger';
 
 import IEnv from '../Env/IEnv';
 import IRouter from '../Router/IRouter';
@@ -33,7 +33,7 @@ interface IServer {
 }
 
 interface IServerConstructor {
-    new(env: IEnv, logger: LoggerInterface, router: IRouter): IServer;
+    new(env: IEnv, logger: ILogger, router: IRouter): IServer;
 }
 
 declare const IServer: IServerConstructor;

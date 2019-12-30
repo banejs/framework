@@ -3,8 +3,8 @@ import http, { Server as HttpServer, IncomingMessage } from 'http';
 import Koa from 'koa';
 import escape from 'lodash/escape';
 import Exception from '@banejs/exceptions/Exception';
-import ExceptionInterface from '@banejs/exceptions/types/ExceptionInterface';
-import LoggerInterface from '@banejs/logger/types/LoggerInterface';
+import IException from '@banejs/exceptions/types/IException';
+import ILogger from '@banejs/logger/types/ILogger';
 
 import IEnv from '../../Env/IEnv';
 import IServer from '../IServer';
@@ -18,10 +18,10 @@ describe('Server', () => {
         isDevelopment: false
     } as IEnv;
 
-    const logger: LoggerInterface = {
-        debug: jest.fn() as LoggerInterface['debug'],
-        error: jest.fn() as LoggerInterface['error']
-    } as LoggerInterface;
+    const logger: ILogger = {
+        debug: jest.fn() as ILogger['debug'],
+        error: jest.fn() as ILogger['error']
+    } as ILogger;
 
     describe('#app()', () => {
         test('should return Koa application instance', () => {
@@ -251,7 +251,7 @@ describe('Server', () => {
 
         test('should return error description for development environment', (done: jest.DoneCallback) => {
             const router: IRouter = new Router();
-            const error: ExceptionInterface = new Exception('some error');
+            const error: IException = new Exception('some error');
             const envDev: IEnv = { isDevelopment: true } as IEnv;
 
             router.get('/', () => {
