@@ -1,6 +1,6 @@
 import IContainer from '@banejs/container/types/IContainer';
 
-import IApplication from './IApplication';
+import IApplication from './types/IApplication';
 
 /**
  * @author Anton Drobot

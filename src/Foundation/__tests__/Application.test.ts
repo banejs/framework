@@ -1,7 +1,7 @@
 import Container from '@banejs/container/Container';
 import IContainer from '@banejs/container/types/IContainer';
 
-import IApplication from '../IApplication';
+import IApplication from '../types/IApplication';
 
 import Application from '../Application';
 

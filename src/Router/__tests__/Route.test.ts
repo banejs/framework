@@ -1,4 +1,4 @@
-import IRoute from '../IRoute';
+import IRoute from '../types/IRoute';
 import { ParamsType } from '../types/ParamsType';
 
 import Route from '../Route';

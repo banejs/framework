@@ -3,8 +3,8 @@ import { Server as HttpServer } from 'http';
 import Koa from 'koa';
 import ILogger from '@banejs/logger/types/ILogger';
 
-import IEnv from '../Env/IEnv';
-import IRouter from '../Router/IRouter';
+import IEnv from '../../Env/types/IEnv';
+import IRouter from '../../Router/types/IRouter';
 
 interface IServer {
     /**

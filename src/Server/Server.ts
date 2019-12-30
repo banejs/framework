@@ -7,11 +7,10 @@ import escape from 'lodash/escape';
 import ILogger from '@banejs/logger/types/ILogger';
 import IException from '@banejs/exceptions/types/IException';
 
-import IServer from './IServer';
-import IEnv from '../Env/IEnv';
-import IRoute from '../Router/IRoute';
-import IRouter from '../Router/IRouter';
-
+import IServer from './types/IServer';
+import IEnv from '../Env/types/IEnv';
+import IRoute from '../Router/types/IRoute';
+import IRouter from '../Router/types/IRouter';
 import { MethodType } from '../Router/types/MethodType';
 
 import normalizeError from '@banejs/exceptions/lib/normalizeError';

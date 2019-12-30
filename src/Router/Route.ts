@@ -1,12 +1,11 @@
 import Koa from 'koa';
 import { pathToRegexp } from 'path-to-regexp';
 
+import IRoute from './types/IRoute';
 import { TokenType } from './types/TokenType';
 import { MethodType } from './types/MethodType';
 import { HandlerType } from './types/HandlerType';
 import { ParamsType } from './types/ParamsType';
-
-import IRoute from './IRoute';
 
 export default class Route<T = Koa.DefaultState, S = Koa.DefaultContext> implements IRoute {
     /**

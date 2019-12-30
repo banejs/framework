@@ -1,9 +1,9 @@
 import Koa from 'koa';
 
-import { TokenType } from './types/TokenType';
-import { MethodType } from './types/MethodType';
-import { HandlerType } from './types/HandlerType';
-import { ParamsType } from './types/ParamsType';
+import { TokenType } from './TokenType';
+import { MethodType } from './MethodType';
+import { HandlerType } from './HandlerType';
+import { ParamsType } from './ParamsType';
 
 interface IRoute<T = Koa.DefaultState, S = Koa.DefaultContext> {
     /**

@@ -1,5 +1,5 @@
-import IRoute from '../IRoute';
-import IRouter from '../IRouter';
+import IRoute from '../types/IRoute';
+import IRouter from '../types/IRouter';
 
 import Route from '../Route';
 import Router from '../Router';

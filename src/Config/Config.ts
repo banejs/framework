@@ -2,7 +2,7 @@ import has from 'lodash/has';
 import get from 'lodash/get';
 import set from 'lodash/set';
 
-import IConfig from './IConfig';
+import IConfig from './types/IConfig';
 
 /**
  * Manage configuration for an application by adding config objects.

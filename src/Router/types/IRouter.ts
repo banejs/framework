@@ -1,7 +1,7 @@
 import IRoute from './IRoute';
 
-import { MethodType } from './types/MethodType';
-import { HandlerType } from './types/HandlerType';
+import { MethodType } from './MethodType';
+import { HandlerType } from './HandlerType';
 
 export default interface IRouter {
     /**

@@ -6,9 +6,9 @@ import Exception from '@banejs/exceptions/Exception';
 import IException from '@banejs/exceptions/types/IException';
 import ILogger from '@banejs/logger/types/ILogger';
 
-import IEnv from '../../Env/IEnv';
-import IServer from '../IServer';
-import IRouter from '../../Router/IRouter';
+import IEnv from '../../Env/types/IEnv';
+import IServer from '../types/IServer';
+import IRouter from '../../Router/types/IRouter';
 
 import Server from '../Server';
 import Router from '../../Router/Router';

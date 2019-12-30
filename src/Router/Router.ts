@@ -1,6 +1,5 @@
-import IRouter from './IRouter';
-import IRoute from './IRoute';
-
+import IRouter from './types/IRouter';
+import IRoute from './types/IRoute';
 import { MethodType } from './types/MethodType';
 import { HandlerType } from './types/HandlerType';
 

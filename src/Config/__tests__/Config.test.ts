@@ -1,4 +1,4 @@
-import IConfig from '../IConfig';
+import IConfig from '../types/IConfig';
 
 import Config from '../Config';
 

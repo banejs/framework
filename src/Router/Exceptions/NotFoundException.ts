@@ -1,11 +1,11 @@
-import IRouterException from './IRouterException';
+import INotFoundException from '../types/INotFoundException';
 
 import RouterException from './RouterException';
 
 /**
  * No entry was found in the router.
  */
-export default class NotFoundException extends RouterException implements IRouterException {
+export default class NotFoundException extends RouterException implements INotFoundException {
     public name: string = 'NotFoundException';
 
     public constructor() {

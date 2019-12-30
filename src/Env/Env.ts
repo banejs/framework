@@ -1,4 +1,4 @@
-import IEnv from './IEnv';
+import IEnv from './types/IEnv';
 
 export default class Env implements IEnv {
     /**
