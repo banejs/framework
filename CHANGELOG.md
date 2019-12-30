@@ -1,3 +1,12 @@
+## [1.1.2](https://github.com/banejs/framework/compare/v1.1.1...v1.1.2) (2019-12-30)
+
+
+### Bug Fixes
+
+* **server:** fix router types ([21eee93](https://github.com/banejs/framework/commit/21eee9351d78095a8e624f722f7fa15b06c1129f))
+
+
+
 ## [1.1.1](https://github.com/banejs/framework/compare/v1.1.0...v1.1.1) (2019-12-30)
 
 
