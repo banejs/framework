@@ -1,3 +1,12 @@
+## [1.1.1](https://github.com/banejs/framework/compare/v1.1.0...v1.1.1) (2019-12-30)
+
+
+### Bug Fixes
+
+* **server:** right implementation of Koa.ParameterizedContext type ([ec0712d](https://github.com/banejs/framework/commit/ec0712d31faab7725fba773b2093d449bf064b5c))
+
+
+
 # [1.1.0](https://github.com/banejs/framework/compare/v1.0.1...v1.1.0) (2019-12-30)
 
 
