@@ -1,3 +1,12 @@
+# [1.1.0](https://github.com/banejs/framework/compare/v1.0.1...v1.1.0) (2019-12-30)
+
+
+### Bug Fixes
+
+* **server:** change Koa.Context type to Koa.ParameterizedContext ([052e7de](https://github.com/banejs/framework/commit/052e7de58a731775574a3e18a8726bc6d900ece3))
+
+
+
 ## [1.0.1](https://github.com/banejs/framework/compare/v1.0.0-beta.6...v1.0.1) (2019-12-20)
 
 
