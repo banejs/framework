@@ -1,3 +1,4 @@
+import { ListenOptions } from 'net';
 import { Server as HttpServer } from 'http';
 
 import Koa from 'koa';
@@ -21,11 +22,6 @@ export default class Server implements IServer {
     private router: IRouter;
     private appInstance: Koa = new Koa();
 
-    /**
-     * @param env - Dependency.
-     * @param logger - Dependency.
-     * @param router - Dependency.
-     */
     public constructor(env: IEnv, logger: ILogger, router: IRouter) {
         this.env = env;
         this.logger = logger;
@@ -34,13 +30,6 @@ export default class Server implements IServer {
 
     /**
      * Request handler to respond to a given HTTP request.
-     *
-     * @param {Koa.ParameterizedContext} context
-     * @param {Koa.Next} next
-     *
-     * @return {Promise<void>}
-     *
-     * @private
      */
     private async handle(context: Koa.ParameterizedContext, next: Koa.Next): Promise<void> {
         try {
@@ -76,8 +65,6 @@ export default class Server implements IServer {
 
     /**
      * Returns Koa application.
-     *
-     * @return {Koa}
      */
     public app(): Koa {
         return this.appInstance;
@@ -85,8 +72,6 @@ export default class Server implements IServer {
 
     /**
      * Registering middleware to run during every HTTP request to your application.
-     *
-     * @param {Koa.Middleware|Array<Koa.Middleware>} middleware
      */
     public middleware(middleware: Koa.Middleware | Array<Koa.Middleware>): void {
         const middlewareList: Array<Koa.Middleware> = Array.isArray(middleware) ? middleware : [middleware];
@@ -98,19 +83,25 @@ export default class Server implements IServer {
 
     /**
      * Starting a server on a given port and host.
-     *
-     * @param {string} [host='localhost']
-     * @param {number} [port=3000]
-     * @param {Function} [callback]
-     *
-     * @return {HttpServer}
      */
-    public listen(host: string = 'localhost', port: number = 3000, callback?: Function): HttpServer {
+    public listen(options: ListenOptions, callback?: () => void): HttpServer {
         this.logger.debug('Waiting for server start...');
         this.appInstance.use(this.handle.bind(this));
 
-        return this.appInstance.listen(port, host, () => {
-            this.logger.debug(`Serving app on http://${host}:${port}/`);
+        const preparedOptions: ListenOptions = {...options};
+
+        if (!preparedOptions.path) {
+            preparedOptions.port = preparedOptions.port || 3000;
+        }
+
+        preparedOptions.host = preparedOptions.host || 'localhost';
+
+        return this.appInstance.listen(preparedOptions, () => {
+            if (preparedOptions.port) {
+                this.logger.debug(`Serving app on http://${preparedOptions.host}:${preparedOptions.port}/`);
+            } else {
+                this.logger.debug(`Serving app on IPC path ${preparedOptions.path}`);
+            }
 
             if (typeof callback !== 'undefined') {
                 callback();
