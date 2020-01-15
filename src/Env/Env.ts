@@ -28,18 +28,4 @@ export default class Env implements IEnv {
      * @type {boolean}
      */
     public isProduction: boolean = this.environment === 'production';
-
-    /**
-     * Is server side.
-     *
-     * @type {boolean}
-     */
-    public isServerSide: boolean = typeof process !== 'undefined' && process.versions !== null && process.versions.node !== null;
-
-    /**
-     * Is client side.
-     *
-     * @type {boolean}
-     */
-    public isClientSide: boolean = typeof window !== 'undefined' && typeof window.document !== 'undefined';
 }

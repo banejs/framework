@@ -79,45 +79,4 @@ describe('Env', () => {
             process.env.NODE_ENV = originalNodeEnv;
         });
     });
-
-    describe('isServerSide', () => {
-        test('should return true', () => {
-            const env: IEnv = new Env();
-
-            expect(env.isServerSide).toBe(true);
-        });
-
-        test('should return false', () => {
-            const originalProcess: NodeJS.Process = process;
-
-            // @ts-ignore
-            global.process = undefined;
-
-            const env: IEnv = new Env();
-
-            expect(env.isServerSide).toBe(false);
-
-            global.process = originalProcess;
-        });
-    });
-
-    describe('isClientSide', () => {
-        test('should return true', () => {
-            // @ts-ignore
-            global.window = { document: {} };
-
-            const env: IEnv = new Env();
-
-            expect(env.isClientSide).toBe(true);
-
-            // @ts-ignore
-            global.window = undefined;
-        });
-
-        test('should return false', () => {
-            const env: IEnv = new Env();
-
-            expect(env.isClientSide).toBe(false);
-        });
-    });
 });
