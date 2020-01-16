@@ -1,3 +1,14 @@
+# [1.2.0](https://github.com/banejs/framework/compare/v1.1.2...v1.2.0) (2020-01-16)
+
+
+### Features
+
+* **config:** separate config to different package ([0d406c5](https://github.com/banejs/framework/commit/0d406c5318f5961b778d943a62ac1d4cf6dafbae))
+* **env:** remove isServerSide and isClientSide from Env ([5fba5df](https://github.com/banejs/framework/commit/5fba5dfa14746b612aaefaf48860038843cc860d))
+* **server:** add IPC support for the server ([ea06f71](https://github.com/banejs/framework/commit/ea06f71b877ac862e0ad8c0797dbff6b5e208f7d))
+
+
+
 ## [1.1.2](https://github.com/banejs/framework/compare/v1.1.1...v1.1.2) (2019-12-30)
 
 
