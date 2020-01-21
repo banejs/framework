@@ -144,6 +144,108 @@ describe('Server', () => {
             });
         });
 
+        test('should return "Global"', (done: jest.DoneCallback) => {
+            const router: IRouter = new Router();
+
+            router.get('/api/:name', () => 'API');
+            router.get('(.*)', () => 'Global');
+
+            const server: IServer = new Server(env, logger, router);
+            const httpServer: HttpServer = server.listen({ port: 3000, host: 'localhost' }, () => {
+                http
+                    .get('http://localhost:3000/global', (res: IncomingMessage) => {
+                        let data: string = '';
+
+                        res.on('data', (chunk: string) => {
+                            data += chunk;
+                        });
+
+                        res.on('end', () => {
+                            expect(data).toBe('Global');
+                            httpServer.close();
+                            done();
+                        });
+                    })
+                    .on('error', (err: Error) => {
+                        httpServer.close();
+                        done.fail(err);
+                    });
+            });
+
+            httpServer.on('error', (err: Error) => {
+                httpServer.close();
+                done.fail(err);
+            });
+        });
+
+        test('should return "API"', (done: jest.DoneCallback) => {
+            const router: IRouter = new Router();
+
+            router.get('/api/:name', () => 'API');
+            router.get('(.*)', () => 'Global');
+
+            const server: IServer = new Server(env, logger, router);
+            const httpServer: HttpServer = server.listen({ port: 3000, host: 'localhost' }, () => {
+                http
+                    .get('http://localhost:3000/api/foo', (res: IncomingMessage) => {
+                        let data: string = '';
+
+                        res.on('data', (chunk: string) => {
+                            data += chunk;
+                        });
+
+                        res.on('end', () => {
+                            expect(data).toBe('API');
+                            httpServer.close();
+                            done();
+                        });
+                    })
+                    .on('error', (err: Error) => {
+                        httpServer.close();
+                        done.fail(err);
+                    });
+            });
+
+            httpServer.on('error', (err: Error) => {
+                httpServer.close();
+                done.fail(err);
+            });
+        });
+
+        test('should return "API" for request with query', (done: jest.DoneCallback) => {
+            const router: IRouter = new Router();
+
+            router.get('/api/:name', () => 'API');
+            router.get('(.*)', () => 'Global');
+
+            const server: IServer = new Server(env, logger, router);
+            const httpServer: HttpServer = server.listen({ port: 3000, host: 'localhost' }, () => {
+                http
+                    .get('http://localhost:3000/api/foo?bar=baz', (res: IncomingMessage) => {
+                        let data: string = '';
+
+                        res.on('data', (chunk: string) => {
+                            data += chunk;
+                        });
+
+                        res.on('end', () => {
+                            expect(data).toBe('API');
+                            httpServer.close();
+                            done();
+                        });
+                    })
+                    .on('error', (err: Error) => {
+                        httpServer.close();
+                        done.fail(err);
+                    });
+            });
+
+            httpServer.on('error', (err: Error) => {
+                httpServer.close();
+                done.fail(err);
+            });
+        });
+
         test('should register route middleware', (done: jest.DoneCallback) => {
             const router: IRouter = new Router();
 

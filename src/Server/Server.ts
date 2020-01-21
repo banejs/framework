@@ -34,12 +34,12 @@ export default class Server implements IServer {
     private async handle(context: Koa.ParameterizedContext, next: Koa.Next): Promise<void> {
         try {
             const method: MethodType = context.method as MethodType;
-            const route: IRoute = this.router.resolve(context.url, method);
+            const route: IRoute = this.router.resolve(context.path, method);
 
             /**
              * Assign route path parameters to context state.
              */
-            context.state.params = route.getRouteParams(context.url);
+            context.state.params = route.getRouteParams(context.path);
 
             /**
              * Apply middleware to request.
