@@ -1,3 +1,12 @@
+## [1.2.1](https://github.com/banejs/framework/compare/v1.2.0...v1.2.1) (2020-01-21)
+
+
+### Bug Fixes
+
+* **router:** resolve correct route when url has query ([1b8aa76](https://github.com/banejs/framework/commit/1b8aa76e1cfada407d1755b41edd0adf3c462929))
+
+
+
 # [1.2.0](https://github.com/banejs/framework/compare/v1.1.2...v1.2.0) (2020-01-16)
 
 
