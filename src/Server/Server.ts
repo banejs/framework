@@ -13,6 +13,7 @@ import IEnv from '../Env/types/IEnv';
 import IRoute from '../Router/types/IRoute';
 import IRouter from '../Router/types/IRouter';
 import { MethodType } from '../Router/types/MethodType';
+import IServerDefaultContextState from './types/IServerDefaultContextState';
 
 import normalizeError from '@banejs/exceptions/lib/normalizeError';
 
@@ -31,7 +32,7 @@ export default class Server implements IServer {
     /**
      * Request handler to respond to a given HTTP request.
      */
-    private async handle(context: Koa.ParameterizedContext, next: Koa.Next): Promise<void> {
+    private async handle<T extends IServerDefaultContextState, S>(context: Koa.ParameterizedContext<T, S>, next: Koa.Next): Promise<void> {
         try {
             const method: MethodType = context.method as MethodType;
             const route: IRoute = this.router.resolve(context.path, method);
@@ -44,7 +45,7 @@ export default class Server implements IServer {
             /**
              * Apply middleware to request.
              */
-            const middleware: Koa.Middleware = koaCompose(route.middlewareList);
+            const middleware: Koa.Middleware<T, S> = koaCompose(route.middlewareList);
 
             await middleware(context, next);
 
@@ -73,10 +74,10 @@ export default class Server implements IServer {
     /**
      * Registering middleware to run during every HTTP request to your application.
      */
-    public middleware(middleware: Koa.Middleware | Array<Koa.Middleware>): void {
-        const middlewareList: Array<Koa.Middleware> = Array.isArray(middleware) ? middleware : [middleware];
+    public middleware<T, S>(middleware: Koa.Middleware<T, S> | Array<Koa.Middleware<T, S>>): void {
+        const middlewareList: Array<Koa.Middleware<T, S>> = Array.isArray(middleware) ? middleware : [middleware];
 
-        middlewareList.forEach((m: Koa.Middleware): void => {
+        middlewareList.forEach((m: Koa.Middleware<T, S>): void => {
             this.appInstance.use(m);
         });
     }
@@ -86,7 +87,7 @@ export default class Server implements IServer {
      */
     public listen(options: ListenOptions, callback?: () => void): HttpServer {
         this.logger.debug('Waiting for server start...');
-        this.appInstance.use(this.handle.bind(this));
+        this.appInstance.use<IServerDefaultContextState>(this.handle.bind(this));
 
         const preparedOptions: ListenOptions = {...options};
 

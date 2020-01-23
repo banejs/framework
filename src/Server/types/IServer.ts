@@ -16,7 +16,7 @@ interface IServer {
     /**
      * Registering middleware to run during every HTTP request to your application.
      */
-    middleware(middleware: Koa.Middleware | Array<Koa.Middleware>): void;
+    middleware<T, S>(middleware: Koa.Middleware<T, S> | Array<Koa.Middleware<T, S>>): void;
 
     /**
      * Starting a server on a given port and host.
