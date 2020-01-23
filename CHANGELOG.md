@@ -1,3 +1,12 @@
+## [1.2.2](https://github.com/banejs/framework/compare/v1.2.1...v1.2.2) (2020-01-23)
+
+
+### Bug Fixes
+
+* **types:** fix generic type for middleware ([c429241](https://github.com/banejs/framework/commit/c4292412c18d18109554974c561b7291d5a7e544))
+
+
+
 ## [1.2.1](https://github.com/banejs/framework/compare/v1.2.0...v1.2.1) (2020-01-21)
 
 
