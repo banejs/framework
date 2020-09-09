@@ -45,11 +45,9 @@ export default class Server implements IServer {
             /**
              * Apply middleware to request.
              */
-            const middleware: Koa.Middleware<T, S> = koaCompose(route.middlewareList);
+            const middleware: Koa.Middleware<T, S> = koaCompose(route.middlewareList.concat(this.routeHandlerMiddleware(route)));
 
             await middleware(context, next);
-
-            context.body = await route.handler(context);
         } catch (error) {
             const normalizedError: IException = normalizeError(error);
 
@@ -62,6 +60,13 @@ export default class Server implements IServer {
 
             this.logger.error(normalizedError);
         }
+    }
+
+    private routeHandlerMiddleware<T, S>(route: IRoute): Koa.Middleware<T, S> {
+        return async (context: Koa.ParameterizedContext<T, S>, next: Koa.Next): Promise<void> => {
+            context.body = await route.handler(context);
+            await next();
+        };
     }
 
     /**
