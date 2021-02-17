@@ -1,3 +1,7 @@
+## [1.2.4](https://github.com/banejs/framework/compare/v1.2.3...v1.2.4) (2021-02-17)
+
+
+
 ## [1.2.3](https://github.com/banejs/framework/compare/v1.2.2...v1.2.3) (2020-09-09)
 
 
