@@ -3,15 +3,15 @@ import { ParamsType } from '../types/ParamsType';
 
 import Route from '../Route';
 
-describe('Route', () => {
+describe('Route', (): void => {
     /* tslint:disable */
     function handler() {}
     function middleware1() {}
     function middleware2() {}
     /* tslint:enable */
 
-    describe('#contructor(route, method, handler)', () => {
-        test('should create route for one method', () => {
+    describe('#contructor(route, method, handler)', (): void => {
+        test('should create route for one method', (): void => {
             const route: IRoute = new Route('/route', 'GET', handler);
 
             expect(route.name).toBe('/route');
@@ -23,7 +23,7 @@ describe('Route', () => {
             expect(route.middlewareList).toEqual([]);
         });
 
-        test('should create route for multiple methods', () => {
+        test('should create route for multiple methods', (): void => {
             const route: IRoute = new Route('/route', ['GET', 'POST'], handler);
 
             expect(route.name).toBe('/route');
@@ -35,7 +35,7 @@ describe('Route', () => {
             expect(route.middlewareList).toEqual([]);
         });
 
-        test('should create route with tokens', () => {
+        test('should create route with tokens', (): void => {
             const route: IRoute = new Route('/user/:name', 'GET', handler);
 
             expect(route.name).toBe('/user/:name');
@@ -56,8 +56,8 @@ describe('Route', () => {
         });
     });
 
-    describe('#as(name)', () => {
-        test('should create route with custom name', () => {
+    describe('#as(name)', (): void => {
+        test('should create route with custom name', (): void => {
             const route: IRoute = new Route('/route', 'GET', handler);
 
             route.as('route-name');
@@ -72,8 +72,8 @@ describe('Route', () => {
         });
     });
 
-    describe('#middleware(middleware)', () => {
-        test('should create route with one middleware', () => {
+    describe('#middleware(middleware)', (): void => {
+        test('should create route with one middleware', (): void => {
             const route: IRoute = new Route('/route', 'GET', handler);
 
             route.middleware(middleware1);
@@ -87,7 +87,7 @@ describe('Route', () => {
             expect(route.middlewareList).toEqual([middleware1]);
         });
 
-        test('should create route with two middleware', () => {
+        test('should create route with two middleware', (): void => {
             const route: IRoute = new Route('/route', 'GET', handler);
 
             route.middleware([middleware1, middleware2]);
@@ -101,7 +101,7 @@ describe('Route', () => {
             expect(route.middlewareList).toEqual([middleware1, middleware2]);
         });
 
-        test('should add second middleware to route', () => {
+        test('should add second middleware to route', (): void => {
             const route: IRoute = new Route('/route', 'GET', handler);
 
             route.middleware(middleware1);
@@ -117,8 +117,8 @@ describe('Route', () => {
         });
     });
 
-    describe('#getRouteParams(route, path)', () => {
-        test('should return params', () => {
+    describe('#getRouteParams(route, path)', (): void => {
+        test('should return params', (): void => {
             const route: IRoute = new Route('/user/:name', 'GET', handler);
             const params: ParamsType = route.getRouteParams('/user/john-doe');
 
@@ -127,7 +127,7 @@ describe('Route', () => {
             });
         });
 
-        test('should return params with undefined name param', () => {
+        test('should return params with undefined name param', (): void => {
             const route: IRoute = new Route('/user/:name', 'GET', handler);
             const params: ParamsType = route.getRouteParams('/user');
 

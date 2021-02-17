@@ -2,9 +2,9 @@ import IEnv from '../types/IEnv';
 
 import Env from '../Env';
 
-describe('Env', () => {
-    describe('environment', () => {
-        test('should use unexpected environment', () => {
+describe('Env', (): void => {
+    describe('environment', (): void => {
+        test('should use unexpected environment', (): void => {
             const originalNodeEnv: string | undefined = process.env.NODE_ENV;
 
             process.env.NODE_ENV = 'unexpected';
@@ -19,7 +19,7 @@ describe('Env', () => {
             process.env.NODE_ENV = originalNodeEnv;
         });
 
-        test('should use development environment', () => {
+        test('should use development environment', (): void => {
             const originalNodeEnv: string | undefined = process.env.NODE_ENV;
 
             process.env.NODE_ENV = 'development';
@@ -34,7 +34,7 @@ describe('Env', () => {
             process.env.NODE_ENV = originalNodeEnv;
         });
 
-        test('should use development environment when NODE_ENV is not provided', () => {
+        test('should use development environment when NODE_ENV is not provided', (): void => {
             const originalNodeEnv: string | undefined = process.env.NODE_ENV;
 
             delete process.env.NODE_ENV;
@@ -49,7 +49,7 @@ describe('Env', () => {
             process.env.NODE_ENV = originalNodeEnv;
         });
 
-        test('should use testing environment', () => {
+        test('should use testing environment', (): void => {
             const originalNodeEnv: string | undefined = process.env.NODE_ENV;
 
             process.env.NODE_ENV = 'testing';
@@ -64,7 +64,7 @@ describe('Env', () => {
             process.env.NODE_ENV = originalNodeEnv;
         });
 
-        test('should use production environment', () => {
+        test('should use production environment', (): void => {
             const originalNodeEnv: string | undefined = process.env.NODE_ENV;
 
             process.env.NODE_ENV = 'production';

@@ -54,7 +54,7 @@ export default class Route<T = Koa.DefaultState, S = Koa.DefaultContext> impleme
      */
     public constructor(route: string, method: MethodType | ReadonlyArray<MethodType>, handler: HandlerType<T, S>) {
         // route can register for multiple methods
-        const methods: ReadonlyArray<MethodType> = Array.isArray(method) ? method : [method];
+        const methods: ReadonlyArray<MethodType> = (Array.isArray(method) ? method : [method]) as ReadonlyArray<MethodType>;
         const { pattern, tokens }: { pattern: RegExp; tokens: ReadonlyArray<TokenType> } = this.makeRoutePattern(route);
 
         this.name = route;

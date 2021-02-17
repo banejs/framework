@@ -102,7 +102,7 @@ export default class Server implements IServer {
 
         preparedOptions.host = preparedOptions.host || 'localhost';
 
-        return this.appInstance.listen(preparedOptions, () => {
+        return this.appInstance.listen(preparedOptions, (): void => {
             if (preparedOptions.port) {
                 this.logger.debug(`Serving app on http://${preparedOptions.host}:${preparedOptions.port}/`);
             } else {

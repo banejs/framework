@@ -5,26 +5,26 @@ import Route from '../Route';
 import Router from '../Router';
 import NotFoundException from '../Exceptions/NotFoundException';
 
-describe('Router', () => {
+describe('Router', (): void => {
     // tslint:disable-next-line
     function handler() {}
 
-    describe('#route(route, method, handler, name)', () => {
-        test('should return Route instance', () => {
+    describe('#route(route, method, handler, name)', (): void => {
+        test('should return Route instance', (): void => {
             const router: IRouter = new Router();
             const route: IRoute = router.route('/route', 'GET', handler);
 
             expect(route).toBeInstanceOf(Route);
         });
 
-        test('should create route for one method', () => {
+        test('should create route for one method', (): void => {
             const router: IRouter = new Router();
             const route: IRoute = router.route('/route', 'GET', handler);
 
             expect(route.methods).toEqual(['GET']);
         });
 
-        test('should create route for multiple methods', () => {
+        test('should create route for multiple methods', (): void => {
             const router: IRouter = new Router();
             const route: IRoute = router.route('/route', ['GET', 'POST'], handler);
 
@@ -32,15 +32,15 @@ describe('Router', () => {
         });
     });
 
-    describe('#get(route, handler, name)', () => {
-        test('should return Route instance', () => {
+    describe('#get(route, handler, name)', (): void => {
+        test('should return Route instance', (): void => {
             const router: IRouter = new Router();
             const route: IRoute = router.get('/route', handler);
 
             expect(route).toBeInstanceOf(Route);
         });
 
-        test('should create route for GET and HEAD methods', () => {
+        test('should create route for GET and HEAD methods', (): void => {
             const router: IRouter = new Router();
             const route: IRoute = router.get('/route', handler);
 
@@ -48,15 +48,15 @@ describe('Router', () => {
         });
     });
 
-    describe('#post(route, handler, name)', () => {
-        test('should return Route instance', () => {
+    describe('#post(route, handler, name)', (): void => {
+        test('should return Route instance', (): void => {
             const router: IRouter = new Router();
             const route: IRoute = router.post('/route', handler);
 
             expect(route).toBeInstanceOf(Route);
         });
 
-        test('should create route for POST method', () => {
+        test('should create route for POST method', (): void => {
             const router: IRouter = new Router();
             const route: IRoute = router.post('/route', handler);
 
@@ -64,15 +64,15 @@ describe('Router', () => {
         });
     });
 
-    describe('#put(route, handler, name)', () => {
-        test('should return Route instance', () => {
+    describe('#put(route, handler, name)', (): void => {
+        test('should return Route instance', (): void => {
             const router: IRouter = new Router();
             const route: IRoute = router.put('/route', handler);
 
             expect(route).toBeInstanceOf(Route);
         });
 
-        test('should create route for PUT method', () => {
+        test('should create route for PUT method', (): void => {
             const router: IRouter = new Router();
             const route: IRoute = router.put('/route', handler);
 
@@ -80,15 +80,15 @@ describe('Router', () => {
         });
     });
 
-    describe('#patch(route, handler, name)', () => {
-        test('should return Route instance', () => {
+    describe('#patch(route, handler, name)', (): void => {
+        test('should return Route instance', (): void => {
             const router: IRouter = new Router();
             const route: IRoute = router.patch('/route', handler);
 
             expect(route).toBeInstanceOf(Route);
         });
 
-        test('should create route for POST method', () => {
+        test('should create route for POST method', (): void => {
             const router: IRouter = new Router();
             const route: IRoute = router.patch('/route', handler);
 
@@ -96,15 +96,15 @@ describe('Router', () => {
         });
     });
 
-    describe('#delete(route, handler, name)', () => {
-        test('should return Route instance', () => {
+    describe('#delete(route, handler, name)', (): void => {
+        test('should return Route instance', (): void => {
             const router: IRouter = new Router();
             const route: IRoute = router.delete('/route', handler);
 
             expect(route).toBeInstanceOf(Route);
         });
 
-        test('should create route for POST method', () => {
+        test('should create route for POST method', (): void => {
             const router: IRouter = new Router();
             const route: IRoute = router.delete('/route', handler);
 
@@ -112,15 +112,15 @@ describe('Router', () => {
         });
     });
 
-    describe('#options(route, handler, name)', () => {
-        test('should return Route instance', () => {
+    describe('#options(route, handler, name)', (): void => {
+        test('should return Route instance', (): void => {
             const router: IRouter = new Router();
             const route: IRoute = router.options('/route', handler);
 
             expect(route).toBeInstanceOf(Route);
         });
 
-        test('should create route for POST method', () => {
+        test('should create route for POST method', (): void => {
             const router: IRouter = new Router();
             const route: IRoute = router.options('/route', handler);
 
@@ -128,22 +128,22 @@ describe('Router', () => {
         });
     });
 
-    describe('#match(route, methods, handler, name)', () => {
-        test('should return Route instance', () => {
+    describe('#match(route, methods, handler, name)', (): void => {
+        test('should return Route instance', (): void => {
             const router: IRouter = new Router();
             const route: IRoute = router.match('/route', ['GET', 'POST', 'PUT'], handler);
 
             expect(route).toBeInstanceOf(Route);
         });
 
-        test('should create route for GET method', () => {
+        test('should create route for GET method', (): void => {
             const router: IRouter = new Router();
             const route: IRoute = router.match('/route', ['GET'], handler);
 
             expect(route.methods).toEqual(['GET']);
         });
 
-        test('should create route for GET, POST and PUT methods', () => {
+        test('should create route for GET, POST and PUT methods', (): void => {
             const router: IRouter = new Router();
             const route: IRoute = router.match('/route', ['GET', 'POST', 'PUT'], handler);
 
@@ -151,15 +151,15 @@ describe('Router', () => {
         });
     });
 
-    describe('#any(route, handler, name)', () => {
-        test('should return Route instance', () => {
+    describe('#any(route, handler, name)', (): void => {
+        test('should return Route instance', (): void => {
             const router: IRouter = new Router();
             const route: IRoute = router.any('/route', handler);
 
             expect(route).toBeInstanceOf(Route);
         });
 
-        test('should create route for GET, HEAD, POST, PUT, PATCH, DELETE and OPTIONS methods', () => {
+        test('should create route for GET, HEAD, POST, PUT, PATCH, DELETE and OPTIONS methods', (): void => {
             const router: IRouter = new Router();
             const route: IRoute = router.any('/route', handler);
 
@@ -167,14 +167,14 @@ describe('Router', () => {
         });
     });
 
-    describe('#routes()', () => {
-        test('should return no routes', () => {
+    describe('#routes()', (): void => {
+        test('should return no routes', (): void => {
             const router: IRouter = new Router();
 
             expect(router.routes()).toEqual([]);
         });
 
-        test('should return one route', () => {
+        test('should return one route', (): void => {
             const router: IRouter = new Router();
 
             router.route('/route', 'GET', handler);
@@ -182,7 +182,7 @@ describe('Router', () => {
             expect(router.routes()).toHaveLength(1);
         });
 
-        test('should return two routes', () => {
+        test('should return two routes', (): void => {
             const router: IRouter = new Router();
 
             router.route('/route1', 'GET', handler);
@@ -192,8 +192,8 @@ describe('Router', () => {
         });
     });
 
-    describe('#resolve(path, method)', () => {
-        test('should return route', () => {
+    describe('#resolve(path, method)', (): void => {
+        test('should return route', (): void => {
             const router: IRouter = new Router();
 
             router.route('/route', 'GET', handler);
@@ -201,22 +201,22 @@ describe('Router', () => {
             expect(router.resolve('/route', 'GET')).toBeInstanceOf(Route);
         });
 
-        test('should throw NotFoundException because no route was found', () => {
+        test('should throw NotFoundException because no route was found', (): void => {
             const router: IRouter = new Router();
 
             router.route('/route', 'GET', handler);
 
-            expect(() => {
+            expect((): void => {
                 router.resolve('/foo/bar', 'GET');
             }).toThrow(NotFoundException);
         });
 
-        test('should throw NotFoundException because route has not POST method', () => {
+        test('should throw NotFoundException because route has not POST method', (): void => {
             const router: IRouter = new Router();
 
             router.route('/route', 'GET', handler);
 
-            expect(() => {
+            expect((): void => {
                 router.resolve('/route', 'POST');
             }).toThrow(NotFoundException);
         });
