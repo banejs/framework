@@ -4,6 +4,7 @@ import IRoute from './IRoute';
 
 import { MethodType } from './MethodType';
 import { HandlerType } from './HandlerType';
+import IServerDefaultContextState from '../../Server/types/IServerDefaultContextState';
 
 export default interface IRouter {
     /**
@@ -20,7 +21,7 @@ export default interface IRouter {
      * @param {MethodType|ReadonlyArray<MethodType>} method - HTTP method.
      * @param {HandlerType} handler - Handler to respond to a given request.
      */
-    route<T = Koa.DefaultState, S = Koa.DefaultContext>(route: string, method: MethodType | ReadonlyArray<MethodType>, handler: HandlerType<T, S>): IRoute<T, S>;
+    route<T extends IServerDefaultContextState = IServerDefaultContextState, S = Koa.DefaultContext>(route: string, method: MethodType | ReadonlyArray<MethodType>, handler: HandlerType<T, S>): IRoute<T, S>;
 
     /**
      * Register route with GET method.
@@ -28,7 +29,7 @@ export default interface IRouter {
      * @param {string} route - Route expression.
      * @param {HandlerType} handler - Handler to respond to a given request.
      */
-    get<T = Koa.DefaultState, S = Koa.DefaultContext>(route: string, handler: HandlerType<T, S>): IRoute<T, S>;
+    get<T extends IServerDefaultContextState = IServerDefaultContextState, S = Koa.DefaultContext>(route: string, handler: HandlerType<T, S>): IRoute<T, S>;
 
     /**
      * Register route with POST method.
@@ -36,7 +37,7 @@ export default interface IRouter {
      * @param {string} route - Route expression.
      * @param {HandlerType} handler - Handler to respond to a given request.
      */
-    post<T = Koa.DefaultState, S = Koa.DefaultContext>(route: string, handler: HandlerType<T, S>): IRoute<T, S>;
+    post<T extends IServerDefaultContextState = IServerDefaultContextState, S = Koa.DefaultContext>(route: string, handler: HandlerType<T, S>): IRoute<T, S>;
 
     /**
      * Register route with PUT method.
@@ -44,7 +45,7 @@ export default interface IRouter {
      * @param {string} route - Route expression.
      * @param {HandlerType} handler - Handler to respond to a given request.
      */
-    put<T = Koa.DefaultState, S = Koa.DefaultContext>(route: string, handler: HandlerType<T, S>): IRoute<T, S>;
+    put<T extends IServerDefaultContextState = IServerDefaultContextState, S = Koa.DefaultContext>(route: string, handler: HandlerType<T, S>): IRoute<T, S>;
 
     /**
      * Register route with PATCH method.
@@ -52,7 +53,7 @@ export default interface IRouter {
      * @param {string} route - Route expression.
      * @param {HandlerType} handler - Handler to respond to a given request.
      */
-    patch<T = Koa.DefaultState, S = Koa.DefaultContext>(route: string, handler: HandlerType<T, S>): IRoute<T, S>;
+    patch<T extends IServerDefaultContextState = IServerDefaultContextState, S = Koa.DefaultContext>(route: string, handler: HandlerType<T, S>): IRoute<T, S>;
 
     /**
      * Register route with DELETE method.
@@ -60,7 +61,7 @@ export default interface IRouter {
      * @param {string} route - Route expression.
      * @param {HandlerType} handler - Handler to respond to a given request.
      */
-    delete<T = Koa.DefaultState, S = Koa.DefaultContext>(route: string, handler: HandlerType<T, S>): IRoute<T, S>;
+    delete<T extends IServerDefaultContextState = IServerDefaultContextState, S = Koa.DefaultContext>(route: string, handler: HandlerType<T, S>): IRoute<T, S>;
 
     /**
      * Register route with OPTIONS method.
@@ -68,7 +69,7 @@ export default interface IRouter {
      * @param {string} route - Route expression.
      * @param {HandlerType} handler - Handler to respond to a given request.
      */
-    options<T = Koa.DefaultState, S = Koa.DefaultContext>(route: string, handler: HandlerType<T, S>): IRoute<T, S>;
+    options<T extends IServerDefaultContextState = IServerDefaultContextState, S = Koa.DefaultContext>(route: string, handler: HandlerType<T, S>): IRoute<T, S>;
 
     /**
      * Registers a route with multiple HTTP methods.
@@ -78,7 +79,7 @@ export default interface IRouter {
      * @param {HandlerType} handler - Handler to respond to a given request.
      * @param {string} [name] - Route name.
      */
-    match<T = Koa.DefaultState, S = Koa.DefaultContext>(route: string, methods: ReadonlyArray<MethodType>, handler: HandlerType<T, S>, name?: string): IRoute<T, S>;
+    match<T extends IServerDefaultContextState = IServerDefaultContextState, S = Koa.DefaultContext>(route: string, methods: ReadonlyArray<MethodType>, handler: HandlerType<T, S>, name?: string): IRoute<T, S>;
 
     /**
      * Registers route for all HTTP methods.
@@ -86,7 +87,7 @@ export default interface IRouter {
      * @param {string} route - Route expression.
      * @param {HandlerType} handler - Handler to respond to a given request.
      */
-    any<T = Koa.DefaultState, S = Koa.DefaultContext>(route: string, handler: HandlerType<T, S>): IRoute<T, S>;
+    any<T extends IServerDefaultContextState = IServerDefaultContextState, S = Koa.DefaultContext>(route: string, handler: HandlerType<T, S>): IRoute<T, S>;
 
     /**
      * Resolves route for a given url and HTTP method.
@@ -96,5 +97,5 @@ export default interface IRouter {
      *
      * @return {IRoute}
      */
-    resolve<T = Koa.DefaultState, S = Koa.DefaultContext>(path: string, method: MethodType): IRoute<T, S>;
+    resolve<T extends IServerDefaultContextState = IServerDefaultContextState, S = Koa.DefaultContext>(path: string, method: MethodType): IRoute<T, S>;
 }

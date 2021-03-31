@@ -8,7 +8,7 @@ import IRouterException from '../types/IRouterException';
 export default class RouterException extends Exception implements IRouterException {
     public name: string = 'RouterException';
 
-    public constructor(message?: string, code: string = 'E_ROUTER_EXCEPTION', status: number = 500) {
+    public constructor(message?: string, code: string = 'E_ROUTER', status: number = 500) {
         super(message || 'Unexpected router exception', code, status);
 
         // Set the prototype explicitly.

@@ -4,8 +4,10 @@ import { TokenType } from './TokenType';
 import { MethodType } from './MethodType';
 import { HandlerType } from './HandlerType';
 import { ParamsType } from './ParamsType';
+import { ServerApplicationMiddlewareType } from '../../Server/types/ServerApplicationMiddlewareType';
+import IServerDefaultContextState from '../../Server/types/IServerDefaultContextState';
 
-interface IRoute<T = Koa.DefaultState, S = Koa.DefaultContext> {
+interface IRoute<T extends IServerDefaultContextState = IServerDefaultContextState, S = Koa.DefaultContext> {
     /**
      * Name of route.
      */
@@ -39,7 +41,7 @@ interface IRoute<T = Koa.DefaultState, S = Koa.DefaultContext> {
     /**
      * Middleware queue to be executed before the route handler is executed.
      */
-    middlewareList: Array<Koa.Middleware<T, S>>;
+    middlewareList: Array<ServerApplicationMiddlewareType<T, S>>;
 
     /**
      * Give name to the route.
@@ -58,7 +60,7 @@ interface IRoute<T = Koa.DefaultState, S = Koa.DefaultContext> {
      *
      * @return {IRoute}
      */
-    middleware(middleware: Koa.Middleware<T, S> | ReadonlyArray<Koa.Middleware<T, S>>): this;
+    middleware(middleware: ServerApplicationMiddlewareType<T, S> | ReadonlyArray<ServerApplicationMiddlewareType<T, S>>): this;
 
     /**
      * Get route params assigned to route tokens.
@@ -70,7 +72,7 @@ interface IRoute<T = Koa.DefaultState, S = Koa.DefaultContext> {
     getRouteParams(path: string): ParamsType;
 }
 
-interface IRouteConstructor<T = Koa.DefaultState, S = Koa.DefaultContext> {
+interface IRouteConstructor<T extends IServerDefaultContextState = IServerDefaultContextState, S = Koa.DefaultContext> {
     /**
      * Construct a new route.
      *

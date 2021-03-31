@@ -7,32 +7,66 @@ import escape from 'lodash/escape';
 
 import ILogger from '@banejs/logger/types/ILogger';
 import IException from '@banejs/exceptions/types/IException';
+import IURLQuery from '@banejs/url/types/IURLQuery';
 
 import IServer from './types/IServer';
 import IEnv from '../Env/types/IEnv';
 import IRoute from '../Router/types/IRoute';
 import IRouter from '../Router/types/IRouter';
-import { MethodType } from '../Router/types/MethodType';
+import IServerApplication from './types/IServerApplication';
+import IServerApplicationContext from './types/IServerApplicationContext';
 import IServerDefaultContextState from './types/IServerDefaultContextState';
+import { ServerApplicationNextType } from './types/ServerApplicationNextType';
+import { MethodType } from '../Router/types/MethodType';
+import { ServerApplicationMiddlewareType } from './types/ServerApplicationMiddlewareType';
 
+import queryParse from '@banejs/url/queryParse';
+import queryStringify from '@banejs/url/queryStringify';
 import normalizeError from '@banejs/exceptions/lib/normalizeError';
+
+import merge from '../lib/merge';
 
 export default class Server implements IServer {
     private env: IEnv;
     private logger: ILogger;
     private router: IRouter;
-    private appInstance: Koa = new Koa();
+    private appInstance: IServerApplication;
 
     public constructor(env: IEnv, logger: ILogger, router: IRouter) {
         this.env = env;
         this.logger = logger;
         this.router = router;
+
+        this.appInstance = this.rewriteKoaApp(new Koa());
+    }
+
+    private rewriteKoaApp(app: Koa): IServerApplication {
+        this.rewriteKoaQueryString(app);
+
+        return app as unknown as IServerApplication;
+    }
+
+    private rewriteKoaQueryString(app: Koa): void {
+        merge(app.request, {
+            get query(): IURLQuery {
+                // @ts-ignore ignore the querystring missing error
+                const str: string = this.querystring;
+                // @ts-ignore ignore the _querycache missing error
+                const cache: Record<string, IURLQuery> = this._querycache = this._querycache || {};
+
+                return cache[str] || (cache[str] = queryParse(str));
+            },
+            set query(obj: IURLQuery) {
+                // @ts-ignore ignore the querystring missing error
+                this.querystring = queryStringify(obj);
+            }
+        });
     }
 
     /**
      * Request handler to respond to a given HTTP request.
      */
-    private async handle<T extends IServerDefaultContextState, S>(context: Koa.ParameterizedContext<T, S>, next: Koa.Next): Promise<void> {
+    private async handle<T extends IServerDefaultContextState = IServerDefaultContextState, S = Koa.DefaultState>(context: IServerApplicationContext<T, S>, next: ServerApplicationNextType): Promise<void> {
         try {
             const method: MethodType = context.method as MethodType;
             const route: IRoute = this.router.resolve(context.path, method);
@@ -45,7 +79,7 @@ export default class Server implements IServer {
             /**
              * Apply middleware to request.
              */
-            const middleware: Koa.Middleware<T, S> = koaCompose(route.middlewareList.concat(this.routeHandlerMiddleware(route)));
+            const middleware: ServerApplicationMiddlewareType<T, S> = koaCompose<IServerApplicationContext<T, S>>(route.middlewareList.concat(this.routeHandlerMiddleware(route)));
 
             await middleware(context, next);
         } catch (error) {
@@ -62,8 +96,8 @@ export default class Server implements IServer {
         }
     }
 
-    private routeHandlerMiddleware<T, S>(route: IRoute): Koa.Middleware<T, S> {
-        return async (context: Koa.ParameterizedContext<T, S>, next: Koa.Next): Promise<void> => {
+    private routeHandlerMiddleware<T extends IServerDefaultContextState = IServerDefaultContextState, S = Koa.DefaultContext>(route: IRoute): ServerApplicationMiddlewareType<T, S> {
+        return async (context: IServerApplicationContext<T, S>, next: ServerApplicationNextType): Promise<void> => {
             context.body = await route.handler(context);
             await next();
         };
@@ -72,17 +106,17 @@ export default class Server implements IServer {
     /**
      * Returns Koa application.
      */
-    public app(): Koa {
+    public app(): IServerApplication {
         return this.appInstance;
     }
 
     /**
      * Registering middleware to run during every HTTP request to your application.
      */
-    public middleware<T, S>(middleware: Koa.Middleware<T, S> | Array<Koa.Middleware<T, S>>): void {
-        const middlewareList: Array<Koa.Middleware<T, S>> = Array.isArray(middleware) ? middleware : [middleware];
+    public middleware<T extends IServerDefaultContextState = IServerDefaultContextState, S = Koa.DefaultContext>(middleware: ServerApplicationMiddlewareType<T, S> | Array<ServerApplicationMiddlewareType<T, S>>): void {
+        const middlewareList: Array<ServerApplicationMiddlewareType<T, S>> = Array.isArray(middleware) ? middleware : [middleware];
 
-        middlewareList.forEach((m: Koa.Middleware<T, S>): void => {
+        middlewareList.forEach((m: ServerApplicationMiddlewareType<T, S>): void => {
             this.appInstance.use(m);
         });
     }

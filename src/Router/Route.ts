@@ -2,12 +2,14 @@ import Koa from 'koa';
 import { pathToRegexp } from 'path-to-regexp';
 
 import IRoute from './types/IRoute';
+import IServerDefaultContextState from '../Server/types/IServerDefaultContextState';
 import { TokenType } from './types/TokenType';
 import { MethodType } from './types/MethodType';
 import { HandlerType } from './types/HandlerType';
 import { ParamsType } from './types/ParamsType';
+import { ServerApplicationMiddlewareType } from '../Server/types/ServerApplicationMiddlewareType';
 
-export default class Route<T = Koa.DefaultState, S = Koa.DefaultContext> implements IRoute<T, S> {
+export default class Route<T extends IServerDefaultContextState = IServerDefaultContextState, S = Koa.DefaultContext> implements IRoute<T, S> {
     /**
      * Name of route.
      */
@@ -41,7 +43,7 @@ export default class Route<T = Koa.DefaultState, S = Koa.DefaultContext> impleme
     /**
      * Middleware queue to be executed before the route handler is executed.
      */
-    public middlewareList: Array<Koa.Middleware<T, S>>;
+    public middlewareList: Array<ServerApplicationMiddlewareType<T, S>>;
 
     /**
      * Construct a new route using path-to-regexp.
@@ -106,7 +108,7 @@ export default class Route<T = Koa.DefaultState, S = Koa.DefaultContext> impleme
      *
      * @return {IRoute}
      */
-    public middleware(middleware: Koa.Middleware<T, S> | ReadonlyArray<Koa.Middleware<T, S>>): this {
+    public middleware(middleware: ServerApplicationMiddlewareType<T, S> | ReadonlyArray<ServerApplicationMiddlewareType<T, S>>): this {
         this.middlewareList = this.middlewareList.concat(middleware);
 
         return this;

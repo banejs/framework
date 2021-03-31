@@ -2,6 +2,7 @@ import Koa from 'koa';
 
 import IRouter from './types/IRouter';
 import IRoute from './types/IRoute';
+import IServerDefaultContextState from '../Server/types/IServerDefaultContextState';
 import { MethodType } from './types/MethodType';
 import { HandlerType } from './types/HandlerType';
 
@@ -42,8 +43,7 @@ export default class Router implements IRouter {
      *
      * });
      */
-    public route<T = Koa.DefaultState, S = Koa.DefaultContext>(route: string, method: MethodType | ReadonlyArray<MethodType>, handler: HandlerType<T, S>): IRoute<T, S> {
-        // @ts -ignore ignore incompatible of handler type
+    public route<T extends IServerDefaultContextState = IServerDefaultContextState, S = Koa.DefaultContext>(route: string, method: MethodType | ReadonlyArray<MethodType>, handler: HandlerType<T, S>): IRoute<T, S> {
         const routeInstance: IRoute<T, S> = new Route<T, S>(route, method, handler);
 
         this.routesCollection.push(routeInstance);
@@ -64,7 +64,7 @@ export default class Router implements IRouter {
      *
      * });
      */
-    public get<T = Koa.DefaultState, S = Koa.DefaultContext>(route: string, handler: HandlerType<T, S>): IRoute<T, S> {
+    public get<T extends IServerDefaultContextState = IServerDefaultContextState, S = Koa.DefaultContext>(route: string, handler: HandlerType<T, S>): IRoute<T, S> {
         return this.route(route, ['GET', 'HEAD'], handler);
     }
 
@@ -81,7 +81,7 @@ export default class Router implements IRouter {
      *
      * });
      */
-    public post<T = Koa.DefaultState, S = Koa.DefaultContext>(route: string, handler: HandlerType<T, S>): IRoute<T, S> {
+    public post<T extends IServerDefaultContextState = IServerDefaultContextState, S = Koa.DefaultContext>(route: string, handler: HandlerType<T, S>): IRoute<T, S> {
         return this.route(route, 'POST', handler);
     }
 
@@ -98,7 +98,7 @@ export default class Router implements IRouter {
      *
      * });
      */
-    public put<T = Koa.DefaultState, S = Koa.DefaultContext>(route: string, handler: HandlerType<T, S>): IRoute<T, S> {
+    public put<T extends IServerDefaultContextState = IServerDefaultContextState, S = Koa.DefaultContext>(route: string, handler: HandlerType<T, S>): IRoute<T, S> {
         return this.route(route, 'PUT', handler);
     }
 
@@ -115,7 +115,7 @@ export default class Router implements IRouter {
      *
      * });
      */
-    public patch<T = Koa.DefaultState, S = Koa.DefaultContext>(route: string, handler: HandlerType<T, S>): IRoute<T, S> {
+    public patch<T extends IServerDefaultContextState = IServerDefaultContextState, S = Koa.DefaultContext>(route: string, handler: HandlerType<T, S>): IRoute<T, S> {
         return this.route(route, 'PATCH', handler);
     }
 
@@ -132,7 +132,7 @@ export default class Router implements IRouter {
      *
      * });
      */
-    public delete<T = Koa.DefaultState, S = Koa.DefaultContext>(route: string, handler: HandlerType<T, S>): IRoute<T, S> {
+    public delete<T extends IServerDefaultContextState = IServerDefaultContextState, S = Koa.DefaultContext>(route: string, handler: HandlerType<T, S>): IRoute<T, S> {
         return this.route(route, 'DELETE', handler);
     }
 
@@ -149,7 +149,7 @@ export default class Router implements IRouter {
      *
      * });
      */
-    public options<T = Koa.DefaultState, S = Koa.DefaultContext>(route: string, handler: HandlerType<T, S>): IRoute<T, S> {
+    public options<T extends IServerDefaultContextState = IServerDefaultContextState, S = Koa.DefaultContext>(route: string, handler: HandlerType<T, S>): IRoute<T, S> {
         return this.route(route, 'OPTIONS', handler);
     }
 
@@ -167,7 +167,7 @@ export default class Router implements IRouter {
      *
      * });
      */
-    public match<T = Koa.DefaultState, S = Koa.DefaultContext>(route: string, methods: ReadonlyArray<MethodType>, handler: HandlerType<T, S>): IRoute<T, S> {
+    public match<T extends IServerDefaultContextState = IServerDefaultContextState, S = Koa.DefaultContext>(route: string, methods: ReadonlyArray<MethodType>, handler: HandlerType<T, S>): IRoute<T, S> {
         return this.route(route, methods, handler);
     }
 
@@ -184,7 +184,7 @@ export default class Router implements IRouter {
      *
      * });
      */
-    public any<T = Koa.DefaultState, S = Koa.DefaultContext>(route: string, handler: HandlerType<T, S>): IRoute<T, S> {
+    public any<T extends IServerDefaultContextState = IServerDefaultContextState, S = Koa.DefaultContext>(route: string, handler: HandlerType<T, S>): IRoute<T, S> {
         const methods: ReadonlyArray<MethodType> = ['GET', 'HEAD', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'];
 
         return this.route(route, methods, handler);
@@ -203,7 +203,7 @@ export default class Router implements IRouter {
      * @example
      * Route.resolve('/user/1', 'GET');
      */
-    public resolve<T = Koa.DefaultState, S = Koa.DefaultContext>(path: string, method: MethodType): IRoute<T, S> {
+    public resolve<T extends IServerDefaultContextState = IServerDefaultContextState, S = Koa.DefaultContext>(path: string, method: MethodType): IRoute<T, S> {
         const route: IRoute<T, S> | undefined = this.routesCollection.find((r: IRoute<T, S>): boolean => (
             r.pattern.test(path) && r.methods.includes(method)
         ));
