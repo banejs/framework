@@ -1,3 +1,12 @@
+# [1.3.0](https://github.com/banejs/framework/compare/v1.2.5...v1.3.0) (2021-03-31)
+
+
+### Features
+
+* **query:** support complex querystring ([8f10fa8](https://github.com/banejs/framework/commit/8f10fa8b67967e66ae335debb75f3a0dc8943e19))
+
+
+
 ## [1.2.5](https://github.com/banejs/framework/compare/v1.2.4...v1.2.5) (2021-03-02)
 
 
