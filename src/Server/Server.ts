@@ -1,5 +1,6 @@
 import { ListenOptions } from 'net';
-import { Server as HttpServer } from 'http';
+import http from 'http';
+import https from 'https';
 
 import Koa from 'koa';
 import koaCompose from 'koa-compose';
@@ -16,6 +17,7 @@ import IRouter from '../Router/types/IRouter';
 import IServerApplication from './types/IServerApplication';
 import IServerApplicationContext from './types/IServerApplicationContext';
 import IServerDefaultContextState from './types/IServerDefaultContextState';
+import IServerListenOptions from './types/IServerListenOptions';
 import { ServerApplicationNextType } from './types/ServerApplicationNextType';
 import { MethodType } from '../Router/types/MethodType';
 import { ServerApplicationMiddlewareType } from './types/ServerApplicationMiddlewareType';
@@ -25,6 +27,7 @@ import queryStringify from '@banejs/url/queryStringify';
 import normalizeError from '@banejs/exceptions/lib/normalizeError';
 
 import merge from '../lib/merge';
+import isServerListenOptionsHttps from '../lib/isServerListenOptionsHttps';
 
 export default class Server implements IServer {
     private env: IEnv;
@@ -124,28 +127,32 @@ export default class Server implements IServer {
     /**
      * Starting a server on a given port and host.
      */
-    public listen(options: ListenOptions, callback?: () => void): HttpServer {
+    public listen(options: IServerListenOptions, callback?: () => void): http.Server | https.Server {
         this.logger.debug('Waiting for server start...');
         this.appInstance.use<IServerDefaultContextState>(this.handle.bind(this));
 
-        const preparedOptions: ListenOptions = {...options};
+        const isHttps: boolean = isServerListenOptionsHttps(options);
+        const listenOptions: ListenOptions = {...options.listen};
 
-        if (!preparedOptions.path) {
-            preparedOptions.port = preparedOptions.port || 3000;
+        if (!listenOptions.path) {
+            listenOptions.port = listenOptions.port || 3000;
         }
 
-        preparedOptions.host = preparedOptions.host || 'localhost';
+        listenOptions.host = listenOptions.host || 'localhost';
 
-        return this.appInstance.listen(preparedOptions, (): void => {
-            if (preparedOptions.port) {
-                this.logger.debug(`Serving app on http://${preparedOptions.host}:${preparedOptions.port}/`);
-            } else {
-                this.logger.debug(`Serving app on IPC path ${preparedOptions.path}`);
-            }
+        const server: http.Server | https.Server = isHttps ? https.createServer(options.server || {}, this.appInstance.callback()) : http.createServer(options.server || {}, this.appInstance.callback());
 
-            if (typeof callback !== 'undefined') {
-                callback();
-            }
-        });
+        return server
+            .listen(listenOptions, (): void => {
+                if (listenOptions.port) {
+                    this.logger.debug(`Serving app on ${isHttps ? 'https' : 'http'}://${listenOptions.host}:${listenOptions.port}/`);
+                } else {
+                    this.logger.debug(`Serving app on IPC path ${listenOptions.path}`);
+                }
+
+                if (typeof callback !== 'undefined') {
+                    callback();
+                }
+            });
     }
 }

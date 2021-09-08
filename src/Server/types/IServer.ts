@@ -1,5 +1,5 @@
-import { ListenOptions } from 'net';
-import { Server as HttpServer } from 'http';
+import http from 'http';
+import https from 'https';
 
 import Koa from 'koa';
 
@@ -8,6 +8,7 @@ import ILogger from '@banejs/logger/types/ILogger';
 import IEnv from '../../Env/types/IEnv';
 import IRouter from '../../Router/types/IRouter';
 import IServerApplication from './IServerApplication';
+import IServerListenOptions from './IServerListenOptions';
 import IServerDefaultContextState from './IServerDefaultContextState';
 import { ServerApplicationMiddlewareType } from './ServerApplicationMiddlewareType';
 
@@ -25,7 +26,7 @@ interface IServer {
     /**
      * Starting a server on a given port and host.
      */
-    listen(options: ListenOptions, callback?: () => void): HttpServer;
+    listen(options: IServerListenOptions, callback?: () => void): http.Server | https.Server;
 }
 
 interface IServerConstructor {

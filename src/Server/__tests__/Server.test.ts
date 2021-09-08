@@ -39,7 +39,7 @@ describe('Server', (): void => {
             router.get('/', (): string => 'Hello, world!');
 
             const server: IServer = new Server(env, logger, router);
-            const httpServer: HttpServer = server.listen({ port: 3000, host: 'localhost' }, (): void => {
+            const httpServer: HttpServer = server.listen({ listen: { port: 3000, host: 'localhost' } }, (): void => {
                 http
                     .get('http://localhost:3000', (res: IncomingMessage): void => {
                         expect(res.statusCode).toBe(200);
@@ -64,7 +64,7 @@ describe('Server', (): void => {
             router.get('/', (): string => 'Hello, world!');
 
             const server: IServer = new Server(env, logger, router);
-            const httpServer: HttpServer = server.listen({ port: 3000, host: 'localhost' }, (): void => {
+            const httpServer: HttpServer = server.listen({ listen: { port: 3000, host: 'localhost' } }, (): void => {
                 http
                     .get('http://localhost:3000/404', (res: IncomingMessage): void => {
                         expect(res.statusCode).toBe(404);
@@ -92,7 +92,7 @@ describe('Server', (): void => {
             });
 
             const server: IServer = new Server(env, logger, router);
-            const httpServer: HttpServer = server.listen({ port: 3000, host: 'localhost' }, (): void => {
+            const httpServer: HttpServer = server.listen({ listen: { port: 3000, host: 'localhost' } }, (): void => {
                 http
                     .get('http://localhost:3000/', (res: IncomingMessage): void => {
                         expect(res.statusCode).toBe(500);
@@ -117,7 +117,7 @@ describe('Server', (): void => {
             router.get('/', (): string => 'Hello, world!');
 
             const server: IServer = new Server(env, logger, router);
-            const httpServer: HttpServer = server.listen({ port: 3000, host: 'localhost' }, (): void => {
+            const httpServer: HttpServer = server.listen({ listen: { port: 3000, host: 'localhost' } }, (): void => {
                 http
                     .get('http://localhost:3000', (res: IncomingMessage): void => {
                         let data: string = '';
@@ -151,7 +151,7 @@ describe('Server', (): void => {
             router.get('(.*)', (): string => 'Global');
 
             const server: IServer = new Server(env, logger, router);
-            const httpServer: HttpServer = server.listen({ port: 3000, host: 'localhost' }, (): void => {
+            const httpServer: HttpServer = server.listen({ listen: { port: 3000, host: 'localhost' } }, (): void => {
                 http
                     .get('http://localhost:3000/global', (res: IncomingMessage): void => {
                         let data: string = '';
@@ -185,7 +185,7 @@ describe('Server', (): void => {
             router.get('(.*)', (): string => 'Global');
 
             const server: IServer = new Server(env, logger, router);
-            const httpServer: HttpServer = server.listen({ port: 3000, host: 'localhost' }, (): void => {
+            const httpServer: HttpServer = server.listen({ listen: { port: 3000, host: 'localhost' } }, (): void => {
                 http
                     .get('http://localhost:3000/api/foo', (res: IncomingMessage): void => {
                         let data: string = '';
@@ -219,7 +219,7 @@ describe('Server', (): void => {
             router.get('(.*)', (): string => 'Global');
 
             const server: IServer = new Server(env, logger, router);
-            const httpServer: HttpServer = server.listen({ port: 3000, host: 'localhost' }, (): void => {
+            const httpServer: HttpServer = server.listen({ listen: { port: 3000, host: 'localhost' } }, (): void => {
                 http
                     .get('http://localhost:3000/api/foo?bar=baz', (res: IncomingMessage): void => {
                         let data: string = '';
@@ -258,7 +258,7 @@ describe('Server', (): void => {
 
             const server: IServer = new Server(env, logger, router);
 
-            const httpServer: HttpServer = server.listen({ port: 3000, host: 'localhost' }, (): void => {
+            const httpServer: HttpServer = server.listen({ listen: { port: 3000, host: 'localhost' } }, (): void => {
                 http
                     .get('http://localhost:3000', (res: IncomingMessage): void => {
                         expect(res.headers['x-middleware-message']).toBe('some message');
@@ -293,7 +293,7 @@ describe('Server', (): void => {
 
             const server: IServer = new Server(env, logger, router);
 
-            const httpServer: HttpServer = server.listen({ port: 3000, host: 'localhost' }, (): void => {
+            const httpServer: HttpServer = server.listen({ listen: { port: 3000, host: 'localhost' } }, (): void => {
                 http
                     .get('http://localhost:3000', (res: IncomingMessage): void => {
                         let data: string = '';
@@ -338,7 +338,7 @@ describe('Server', (): void => {
 
             const server: IServer = new Server(env, logger, router);
 
-            const httpServer: HttpServer = server.listen({ port: 3000, host: 'localhost' }, (): void => {
+            const httpServer: HttpServer = server.listen({ listen: { port: 3000, host: 'localhost' } }, (): void => {
                 http
                     .get('http://localhost:3000', (res: IncomingMessage): void => {
                         expect(res.headers['x-middleware-message-1']).toBe('some message 1');
@@ -367,7 +367,7 @@ describe('Server', (): void => {
             });
 
             const server: IServer = new Server(env, logger, router);
-            const httpServer: HttpServer = server.listen({ port: 3000, host: 'localhost' }, (): void => {
+            const httpServer: HttpServer = server.listen({ listen: { port: 3000, host: 'localhost' } }, (): void => {
                 http
                     .get('http://localhost:3000', (res: IncomingMessage): void => {
                         let data: string = '';
@@ -404,7 +404,7 @@ describe('Server', (): void => {
             });
 
             const server: IServer = new Server(envDev, logger, router);
-            const httpServer: HttpServer = server.listen({ port: 3000, host: 'localhost' }, (): void => {
+            const httpServer: HttpServer = server.listen({ listen: { port: 3000, host: 'localhost' } }, (): void => {
                 http
                     .get('http://localhost:3000', (res: IncomingMessage): void => {
                         let data: string = '';
@@ -445,7 +445,7 @@ describe('Server', (): void => {
                 ctx.set('x-middleware-message', 'some message');
             });
 
-            const httpServer: HttpServer = server.listen({ port: 3000, host: 'localhost' }, (): void => {
+            const httpServer: HttpServer = server.listen({ listen: { port: 3000, host: 'localhost' } }, (): void => {
                 http
                     .get('http://localhost:3000', (res: IncomingMessage): void => {
                         expect(res.headers['x-middleware-message']).toBe('some message');
@@ -482,7 +482,7 @@ describe('Server', (): void => {
                 }
             ]);
 
-            const httpServer: HttpServer = server.listen({ port: 3000, host: 'localhost' }, (): void => {
+            const httpServer: HttpServer = server.listen({ listen: { port: 3000, host: 'localhost' } }, (): void => {
                 http
                     .get('http://localhost:3000', (res: IncomingMessage): void => {
                         expect(res.headers['x-middleware-message-1']).toBe('some message 1');
